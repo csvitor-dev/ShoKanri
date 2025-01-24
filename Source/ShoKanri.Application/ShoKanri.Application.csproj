@@ -6,4 +6,10 @@
     <Nullable>enable</Nullable>
   </PropertyGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\Shared\ShoKanri.Exception\ShoKanri.Exception.csproj" />
+    <ProjectReference Include="..\Shared\ShoKanri.Http\ShoKanri.Http.csproj" />
+    <ProjectReference Include="..\ShoKanri.Domain\ShoKanri.Domain.csproj" />
+  </ItemGroup>
+
 </Project>

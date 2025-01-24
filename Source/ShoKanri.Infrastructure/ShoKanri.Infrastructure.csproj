@@ -6,4 +6,8 @@
     <Nullable>enable</Nullable>
   </PropertyGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\ShoKanri.Domain\ShoKanri.Domain.csproj" />
+  </ItemGroup>
+
 </Project>

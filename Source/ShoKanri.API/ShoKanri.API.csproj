@@ -11,4 +11,11 @@
     <PackageReference Include="Swashbuckle.AspNetCore" Version="6.6.2" />
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\Shared\ShoKanri.Exception\ShoKanri.Exception.csproj" />
+    <ProjectReference Include="..\Shared\ShoKanri.Http\ShoKanri.Http.csproj" />
+    <ProjectReference Include="..\ShoKanri.Application\ShoKanri.Application.csproj" />
+    <ProjectReference Include="..\ShoKanri.Infrastructure\ShoKanri.Infrastructure.csproj" />
+  </ItemGroup>
+
 </Project>
