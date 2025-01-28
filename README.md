@@ -1,7 +1,7 @@
 <p align="center">
     <picture>
-        <source srcset="./Docs/images/kanri-light.svg" media="(prefers-color-scheme: light)" width="200" alt="logo dark theme">
-        <source srcset="./Docs/images/kanri-light.svg" media="(prefers-color-scheme: dark)" width="200" alt="logo light theme">
+        <source srcset="./Docs/images/kanri-light.svg" media="(prefers-color-scheme: dark)" width="200" alt="logo dark theme">
+        <source srcset="./Docs/images/kanri-dark.svg" media="(prefers-color-scheme: light)" width="200" alt="logo light theme">
         <img src="./Docs/images/kanri-dark.svg" width="200" alt="logo dark theme as default">
     </picture>
 </p>
