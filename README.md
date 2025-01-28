@@ -21,10 +21,15 @@
 Whenever you are going to perform a task associated with an **Issue**, create a new _branch_:
 
 ```bash
-git checkout -b your-branch
+git checkout -b prefix/your-branch-name
 ```
 
 When finished, create a **Pull Request** for the `main` _branch_!
+
+> [!TIP]\
+> It is important to follow these conventions, as the execution of certain operations will be restricted by predefined
+> "[**rulesets**](https://docs.github.com/en/repositories/configuring-branches-and-merges-in-your-repository/managing-rulesets/creating-rulesets-for-a-repository)"
+> in the `main` branch.
 
 ## Project Structure
 
