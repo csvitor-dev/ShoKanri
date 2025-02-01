@@ -26,6 +26,18 @@ if (app.Environment.IsDevelopment())
 {
     app.UseSwagger();
     app.UseSwaggerUI();
+
+    // Expose sample endpoint.
+    app.MapGet("/", () => 
+    {
+        return Results.Ok(new { 
+            Message = "Welcome to Shō-Kanri API, the sample API based on the Kanri project",
+            GitHubUrl = "https://github.com/csvitor-dev/ShoKanri.API",
+            ApiDocUrl = "https://localhost:7206/swagger"
+        });
+    })
+    .WithName("Sample Endpoint")
+    .WithOpenApi();
 }
 
 // Use native Health Check service (extension)
@@ -33,18 +45,6 @@ if (app.Environment.IsDevelopment())
 await app.Services.UseHealthCheckResourceAsync();
 
 app.UseHttpsRedirection();
-
-// Expose sample endpoint.
-app.MapGet("/", () => 
-{
-    return Results.Ok(new { 
-        Message = "Welcome to Shō-Kanri API, the sample API based on the Kanri project",
-        GitHubUrl = "https://github.com/csvitor-dev/ShoKanri.API",
-        ApiDocUrl = "https://localhost:7206/swagger"
-    });
-})
-.WithName("Sample Endpoint")
-.WithOpenApi();
 
 app.MapControllers();
 
