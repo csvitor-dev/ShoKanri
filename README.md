@@ -24,7 +24,7 @@ Whenever you are going to perform a task associated with an **Issue**, create a 
 git checkout -b prefix/your-branch-name
 ```
 
-When finished, create a **Pull Request** for the `main` _branch_!
+When finished, create a **Pull Request** for the **`develop`** _branch_!
 
 > [!TIP]\
 > It is important to follow these conventions, as the execution of certain operations will be restricted by predefined
