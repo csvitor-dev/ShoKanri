@@ -13,10 +13,10 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Shared\ShoKanri.Exception\ShoKanri.Exception.csproj" />
-    <ProjectReference Include="..\Shared\ShoKanri.Http\ShoKanri.Http.csproj" />
-    <ProjectReference Include="..\ShoKanri.Application\ShoKanri.Application.csproj" />
-    <ProjectReference Include="..\ShoKanri.Infrastructure\ShoKanri.Infrastructure.csproj" />
+    <ProjectReference Include="..\..\..\Library\ShoKanri.Exception\ShoKanri.Exception.csproj" />
+    <ProjectReference Include="..\..\..\Library\ShoKanri.Http\ShoKanri.Http.csproj" />
+    <ProjectReference Include="..\..\Core\ShoKanri.Application\ShoKanri.Application.csproj" />
+    <ProjectReference Include="..\..\Infrastructure\ShoKanri.DAO\ShoKanri.DAO.csproj" />
   </ItemGroup>
 
 </Project>

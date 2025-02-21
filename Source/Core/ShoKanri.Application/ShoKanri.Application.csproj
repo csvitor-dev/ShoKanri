@@ -7,6 +7,8 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\..\..\Library\ShoKanri.Exception\ShoKanri.Exception.csproj" />
+    <ProjectReference Include="..\..\..\Library\ShoKanri.Http\ShoKanri.Http.csproj" />
     <ProjectReference Include="..\ShoKanri.Domain\ShoKanri.Domain.csproj" />
   </ItemGroup>
 
