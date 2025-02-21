@@ -1,8 +1,8 @@
 <p align="center">
     <picture>
-        <source srcset="./Docs/images/kanri-light.svg" media="(prefers-color-scheme: dark)" width="200" alt="logo dark theme">
-        <source srcset="./Docs/images/kanri-dark.svg" media="(prefers-color-scheme: light)" width="200" alt="logo light theme">
-        <img src="./Docs/images/kanri-dark.svg" width="200" alt="logo dark theme as default">
+        <source srcset="./Docs/Assets/Svg/kanri-light.svg" media="(prefers-color-scheme: dark)" width="200" alt="logo dark theme">
+        <source srcset="./Docs/Assets/Svg/kanri-dark.svg" media="(prefers-color-scheme: light)" width="200" alt="logo light theme">
+        <img src="./Docs/Assets/Svg/kanri-dark.svg" width="200" alt="logo dark theme as default">
     </picture>
 </p>
 
@@ -35,15 +35,20 @@ When finished, create a **Pull Request** for the `main` _branch_!
 
 ```text
 ├───Docs/
-├───Source/
-│   ├───Shared/
-│   │   ├───ShoKanri.Exception/
-│   │   └───ShoKanri.Http/
-│   ├───ShoKanri.API/
-│   ├───ShoKanri.Application/
-│   ├───ShoKanri.Domain/
-│   └───ShoKanri.Infrastructure/
+├───Library/
+│   ├───ShoKanri.Exception/
+│   └───ShoKanri.Http/
 │
+├───Source/
+│   ├───Core/
+│   │   ├───ShoKanri.Application/
+│   │   └───ShoKanri.Domain/
+│   │
+│   ├───Infrastructure/
+│   │   └───ShoKanri.DAO/
+│   │
+│   └───Presenter/
+│       └───ShoKanri.API/
 └───Test/
 ```
 
