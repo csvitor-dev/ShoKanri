@@ -1,0 +1,36 @@
+using ShoKanri.Domain.Entities.Transactions;
+
+namespace ShoKanri.Domain.Entities;
+
+public sealed class Account
+    (int userId, string name, decimal balance) : BaseEntity
+{
+    private readonly IList<Transaction> _statement = new List<Transaction>();
+
+    public int UserId { get; init; } = userId;
+    public string Name { get; private set; } = name;
+    public decimal Balance { get; private set; } = balance;
+    public string Description { get; private set; } = string.Empty;
+    
+    public Transaction[] Statement => _statement.ToArray();
+
+    public void Withdraw(decimal amount)
+    {
+        if (amount < 0 || amount > Balance)
+            throw new InvalidOperationException("Amount must be valid value");
+        Balance -= amount;
+    }
+
+    public void Deposit(decimal amount)
+    {
+        if (amount < 0)
+            throw new InvalidOperationException("Amount must be greater than 0");
+        Balance += amount;
+    }
+
+    public void RegisterTransaction(Transaction transaction) 
+        => _statement.Add(transaction);
+
+    public Transaction? GetTransaction(int transactionId)
+        => _statement.SingleOrDefault(transaction => transaction.Id == transactionId);
+}
