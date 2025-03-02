@@ -8,5 +8,11 @@ public abstract class Transaction
     public int AccountId { get; init; } = accountId;
     public decimal Amount { get; protected set; } = amount;
     
-    public abstract void Transact(Account account);
+    protected abstract void Transact(Account account);
+
+    public void Execute(Account account)
+    {
+        Transact(account);
+        account.RegisterTransaction(this);
+    }
 }
