@@ -3,7 +3,7 @@ using ShoKanri.Domain.Entities.Transactions;
 namespace ShoKanri.Domain.Entities;
 
 public sealed class Account
-    (int userId, string name, decimal balance) : BaseEntity
+    (int id, int userId, string name, decimal balance = 0.0m) : BaseEntity(id)
 {
     private readonly IList<Transaction> _statement = new List<Transaction>();
 
