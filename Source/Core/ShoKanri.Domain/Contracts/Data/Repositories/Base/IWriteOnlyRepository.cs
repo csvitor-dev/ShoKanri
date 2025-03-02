@@ -1,6 +1,6 @@
 using ShoKanri.Domain.Entities;
 
-namespace ShoKanri.Domain.Contracts.Data.Repositories;
+namespace ShoKanri.Domain.Contracts.Data.Repositories.Base;
 
 public interface IWriteOnlyRepository<T> where T : BaseEntity
 {
