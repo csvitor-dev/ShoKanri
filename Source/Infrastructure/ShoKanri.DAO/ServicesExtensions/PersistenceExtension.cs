@@ -7,6 +7,9 @@ using ShoKanri.Domain.Contracts.Data.Services;
 using ShoKanri.DAO.Repositories;
 using ShoKanri.Domain.Contracts.Data.Repositories.User;
 using ShoKanri.DAO.Repositories.Users;
+using ShoKanri.Domain.Entities;
+using ShoKanri.Domain.Contracts.Data.Repositories.Account;
+using ShoKanri.DAO.Repositories.Accounts;
 
 namespace ShoKanri.DAO.ServicesExtensions;
 
@@ -19,5 +22,6 @@ public static class PersistenceExtension
         services.AddScoped<IUnitOfWork, UnitOfWork>();
         services.AddScoped<IUserReadRepository, UserReadRepository>();
         services.AddScoped<IUserWriteRepository, UserWriteRepository>();
+        services.AddScoped<IAccountReadRepository, AccountReadRepository>();
     }
 }
