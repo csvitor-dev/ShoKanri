@@ -1,4 +1,3 @@
-using System;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Configuration;
 using ShoKanri.DAO.Context;
@@ -7,7 +6,6 @@ using ShoKanri.Domain.Contracts.Data.Services;
 using ShoKanri.DAO.Repositories;
 using ShoKanri.Domain.Contracts.Data.Repositories.User;
 using ShoKanri.DAO.Repositories.Users;
-using ShoKanri.Domain.Entities;
 using ShoKanri.Domain.Contracts.Data.Repositories.Account;
 using ShoKanri.DAO.Repositories.Accounts;
 using ShoKanri.Domain.Contracts.Data.Repositories.Transaction;
