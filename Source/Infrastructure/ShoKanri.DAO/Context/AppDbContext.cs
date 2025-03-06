@@ -1,6 +1,7 @@
 using System;
 using System.Transactions;
 using Microsoft.EntityFrameworkCore;
+using ShoKanri.DAO.Context.EntitiesConfiguration;
 using ShoKanri.Domain.Entities;
 using ShoKanri.Domain.Entities.Transactions;
 
@@ -18,12 +19,17 @@ public class AppDbContext : DbContext
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
+        modelBuilder.ApplyConfiguration(new UserConfigurations());
+        modelBuilder.ApplyConfiguration(new AccountConfigurations());
+        
         modelBuilder.Entity<Domain.Entities.Transactions.Transaction>()
             .HasDiscriminator<int>("MovimentKind")
             .HasValue<Income>(0)
             .HasValue<Expense>(1)
             .HasValue<Transference>(2);
 
+        modelBuilder.Entity<Transference>().ToTable("Transferences");
+        
         base.OnModelCreating(modelBuilder);
     }
 }
