@@ -19,6 +19,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\..\Source\Core\ShoKanri.Domain\ShoKanri.Domain.csproj" />
+    <ProjectReference Include="..\ShoKanri.Mock\ShoKanri.Mock.csproj" />
   </ItemGroup>
 
 </Project>
