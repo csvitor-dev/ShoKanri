@@ -11,24 +11,24 @@ public sealed class Account
     public string Name { get; private set; } = name;
     public decimal Balance { get; private set; } = balance;
     public string Description { get; private set; } = string.Empty;
-    
+
     public Transaction[] Statement => _statement.ToArray();
 
     public void Withdraw(decimal amount)
     {
-        if (amount < 0 || amount > Balance)
+        if (amount <= 0 || amount > Balance)
             throw new InvalidOperationException("Amount must be valid value");
         Balance -= amount;
     }
 
     public void Deposit(decimal amount)
     {
-        if (amount < 0)
+        if (amount <= 0)
             throw new InvalidOperationException("Amount must be greater than 0");
         Balance += amount;
     }
 
-    public void RegisterTransaction(Transaction transaction) 
+    public void RegisterTransaction(Transaction transaction)
         => _statement.Add(transaction);
 
     public Transaction? GetTransaction(int transactionId)
