@@ -1,4 +1,4 @@
-using Microsoft.Extensions.DependencyInjection;
+﻿using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Configuration;
 using ShoKanri.DAO.Context;
 using Microsoft.EntityFrameworkCore;
@@ -12,7 +12,7 @@ using ShoKanri.Domain.Contracts.Data.Repositories.Transaction;
 using ShoKanri.DAO.Repositories.Transactions;
 using FluentMigrator.Runner;
 
-namespace ShoKanri.DAO.ServicesExtensions;
+namespace ShoKanri.IoC;
 
 public static class PersistenceExtension
 {
@@ -24,16 +24,21 @@ public static class PersistenceExtension
                 .ConfigureRunner(rb => rb
                     .AddPostgres()
                     .WithGlobalConnectionString(connectionString)
-                    .ScanIn(typeof(PersistenceExtension).Assembly).For.Migrations())
+                    .ScanIn(typeof(AppDbContext).Assembly).For.Migrations())
                 .AddLogging(lb => lb.AddFluentMigratorConsole());
 
         services.AddDbContext<AppDbContext>(opt => opt.UseNpgsql(connectionString));
         services.AddScoped<IUnitOfWork, UnitOfWork>();
-        services.AddScoped<IUserReadRepository, UserReadRepository>();
-        services.AddScoped<IUserWriteRepository, UserWriteRepository>();
-        services.AddScoped<IAccountReadRepository, AccountReadRepository>();
-        services.AddScoped<IAccountWriteRepository, AccountWriteRepository>();
-        services.AddScoped<ITransactionReadRepository, TransactionReadRepository>();
-        services.AddScoped<ITransactionWriteRepository, TransactionWriteRepository>();
+        services.AddScoped<IUserReadRepository, UserRepository>();
+        services.AddScoped<IUserWriteRepository, UserRepository>();
+        services.AddScoped<IAccountReadRepository, AccountRepository>();
+        services.AddScoped<IAccountWriteRepository, AccountRepository>();
+        services.AddScoped<ITransactionReadRepository, TransactionRepository>();
+        services.AddScoped<ITransactionWriteRepository, TransactionRepository>();
+
+        using var ServiceProvider = services.BuildServiceProvider();
+        using var scope = ServiceProvider.CreateScope();
+        var runner = scope.ServiceProvider.GetRequiredService<IMigrationRunner>();
+        runner.MigrateUp();
     }
 }

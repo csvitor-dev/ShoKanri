@@ -1,7 +1,6 @@
-using FluentMigrator.Runner;
 using Microsoft.AspNetCore.Mvc;
 using ShoKanri.API.Extensions;
-using ShoKanri.DAO.ServicesExtensions;
+using ShoKanri.IoC;
 
 [assembly: ApiController]
 var builder = WebApplication.CreateBuilder(args);
@@ -54,11 +53,6 @@ var app = builder.Build();
 
     app.MapControllers();
 
-    using(var scope = app.Services.CreateScope())
-    {
-        var runner = scope.ServiceProvider.GetRequiredService<IMigrationRunner>();
-        runner.MigrateUp();
-    }
     app.Run();
 }
 

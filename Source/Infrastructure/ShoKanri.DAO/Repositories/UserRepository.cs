@@ -7,7 +7,8 @@ using ShoKanri.Domain.Entities;
 
 namespace ShoKanri.DAO.Repositories.Users;
 
-public class UserReadRepository(AppDbContext _context) : ReadOnlyRepository<User>(_context), IUserReadRepository
+public class UserRepository(AppDbContext _context) : BaseRepository<User>(_context),
+IUserReadRepository, IUserWriteRepository
 {
     public async Task<bool> FindActiveEmailAsync(string email)
     {
