@@ -13,11 +13,11 @@ public abstract class AccountMockFactory : MockFactory
         return new Account(id, userId, name, amount.Value);
     }
 
-    public static IEnumerable<Account> CreateMock(int quantity, int userId)
+    public static IEnumerable<Account> CreateMock(int count, int userId)
     {
         var collection = new List<Account>();
 
-        for (var i = 0; i < quantity; i++)
+        for (var i = 0; i < count; i++)
         {
             var amount =  Faker.Random.Decimal(0m, 10_000m);
             collection.Add(CreateMock(userId, amount));

@@ -1,4 +1,3 @@
-using ShoKanri.Domain.Entities;
 using ShoKanri.Mock.Factories.Domain;
 
 namespace ShoKanri.Domain.Unit;
@@ -23,7 +22,7 @@ public class UserTest
     public void Test_LinkMoreThanFourAccounts_ToAUser_ExpectAnException()
     {
         var user = UserMockFactory.CreateMock();
-        var accountsToLink = AccountMockFactory.CreateMock(4, user.Id);
+        var accountsToLink = AccountMockFactory.CreateMock(count: 4, user.Id);
         var accountErrorLink = AccountMockFactory.CreateMock(user.Id);
 
         foreach (var account in accountsToLink)
