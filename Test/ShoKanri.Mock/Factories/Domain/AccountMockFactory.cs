@@ -4,7 +4,7 @@ namespace ShoKanri.Mock.Factories.Domain;
 
 public abstract class AccountMockFactory : MockFactory
 {
-    public static Account CreateMock(int userId, decimal? amount = null)
+    public static Account CreateMock(int userId = 0, decimal? amount = null)
     {
         var id = NewId;
         var name = Faker.Finance.AccountName();

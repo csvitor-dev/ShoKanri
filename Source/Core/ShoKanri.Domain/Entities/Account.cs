@@ -23,7 +23,7 @@ public sealed class Account
 
     public void Deposit(decimal amount)
     {
-        if (amount < 0)
+        if (amount <= 0)
             throw new InvalidOperationException("Amount must be greater than 0");
         Balance += amount;
     }

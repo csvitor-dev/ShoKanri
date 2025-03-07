@@ -6,7 +6,7 @@ namespace ShoKanri.Domain.Unit;
 public class UserTest
 {
     [Test]
-    public void Test_LinkAccount_ToAUser_Successfully()
+    public void Test_LinkAccount_ToAUser_OnSuccess()
     {
         var user = UserMockFactory.CreateMock();
         var account = AccountMockFactory.CreateMock(user.Id);
@@ -19,7 +19,7 @@ public class UserTest
     }
 
     [Test]
-    public void Test_LinkMoreThanFourAccounts_ToAUser_ExpectAnException()
+    public void Test_LinkMoreThanFourAccounts_ToAUser_OnFailure_ExpectAnException()
     {
         var user = UserMockFactory.CreateMock();
         var accountsToLink = AccountMockFactory.CreateMock(count: 4, user.Id);
