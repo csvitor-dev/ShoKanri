@@ -1,6 +1,6 @@
 namespace ShoKanri.Http.Requests.Transaction;
 
-public class CreateTransferRequest
+public class CreateTransferenceRequest
 {
     public decimal Amount { get; set; }
     public string Description { get; set; }
