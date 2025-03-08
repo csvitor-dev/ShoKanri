@@ -1,3 +1,5 @@
+using ShoKanri.Http.Enums;
+
 namespace ShoKanri.Http.Responses.Transaction;
 
 public class TransactionResponse
