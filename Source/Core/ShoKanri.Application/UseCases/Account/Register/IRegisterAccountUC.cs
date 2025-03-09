@@ -9,6 +9,6 @@ namespace ShoKanri.Application.UseCases.Account.Register
 {
     public interface IRegisterAccountUC
     {
-        public Task<CreateAccountResponse> CreateAccount(CreateAccountRequest request);
+        public Task<RegisterAccountResponse> RegisterAccount(RegisterAccountRequest request);
     }
 }

@@ -19,7 +19,7 @@
         ) : IRegisterAccountUC
         {
 
-            public async Task<CreateAccountResponse> CreateAccount(CreateAccountRequest request)
+            public async Task<RegisterAccountResponse> RegisterAccount(RegisterAccountRequest request)
             {
                 await ValidateAsync(request);
 
