@@ -4,14 +4,14 @@ using ShoKanri.DAO.Context;
 using ShoKanri.Domain.Contracts.Data.Repositories.Base;
 using ShoKanri.Domain.Entities;
 
-namespace ShoKanri.DAO.Repositories.Base;
+namespace ShoKanri.DAO.Repositories;
 
 public class BaseRepository<T>(AppDbContext context) :
 IReadOnlyRepository<T>, IWriteOnlyRepository<T> where T : BaseEntity
 {
     protected readonly AppDbContext _context = context;
 
-    public async Task<IEnumerable<T>> FindAllAsync()
+    public async Task<IList<T>> FindAllAsync()
     {
         return await _context.Set<T>().ToListAsync();
     }

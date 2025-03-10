@@ -4,16 +4,10 @@ using ShoKanri.Domain.Contracts.Data.Services;
 
 namespace ShoKanri.DAO.Repositories;
 
-public class UnitOfWork : IUnitOfWork
+public class UnitOfWork(AppDbContext context) : IUnitOfWork
 {
-    private readonly AppDbContext _context;
+    private readonly AppDbContext _context = context;
 
-    public UnitOfWork(AppDbContext context)
-    {
-        _context = context;
-    }
     public async Task CommitAsync()
-    {
-        await _context.SaveChangesAsync();
-    }
+        => await _context.SaveChangesAsync();
 }

@@ -1,13 +1,11 @@
 using ShoKanri.DAO.Context;
-using ShoKanri.DAO.Repositories.Base;
-using ShoKanri.Domain.Contracts.Data.Repositories.Account;
+using ShoKanri.Domain.Contracts.Data.Repositories;
 using ShoKanri.Domain.Entities;
 using ShoKanri.Domain.Entities.Transactions;
 
-namespace ShoKanri.DAO.Repositories.Accounts;
+namespace ShoKanri.DAO.Repositories;
 
-public class AccountRepository(AppDbContext _context) : BaseRepository<Account>(_context),
-IAccountReadRepository, IAccountWriteRepository
+public class AccountRepository(AppDbContext _context) : BaseRepository<Account>(_context), IAccountRepository
 {
     public async Task<IList<Transaction>?> FindStatementForAccountAsync(int accountId)
     {
