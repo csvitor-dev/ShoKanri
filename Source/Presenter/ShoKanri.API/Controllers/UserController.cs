@@ -2,11 +2,10 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace ShoKanri.API.Controllers;
 
-[ApiController]
 [Route("[controller]")]
-public sealed class UserController : ControllerBase
+public sealed class UserController : ApplicationController
 {
     [HttpGet]
     public IActionResult Get()
-        => Ok(new { Message = typeof(UserController).FullName });
+        => AppOk( new { Message = typeof(UserController).FullName });
 }
