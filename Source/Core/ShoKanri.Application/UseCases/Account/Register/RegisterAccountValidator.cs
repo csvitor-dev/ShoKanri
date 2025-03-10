@@ -8,7 +8,7 @@ using ShoKanri.Exception;
 
 namespace ShoKanri.Application.UseCases.Account.Register
 {
-    public class RegisterAccountValidator : AbstractValidator<CreateAccountRequest>
+    public class RegisterAccountValidator : AbstractValidator<RegisterAccountRequest>
     {
         public RegisterAccountValidator()
         {

@@ -1,9 +1,5 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using AutoMapper;
-using ShoKanri.Domain.Contracts.Data.Repositories.User;
+using ShoKanri.Domain.Contracts.Data.Repositories;
 using ShoKanri.Domain.Contracts.Data.Services;
 using ShoKanri.Http.Requests.User;
 using ShoKanri.Http.Responses.User;
@@ -11,8 +7,7 @@ using ShoKanri.Http.Responses.User;
 namespace ShoKanri.Application.UseCases.User.Register
 {
     public class RegisterUserUC (
-        IUserReadRepository readRepo,
-        IUserWriteRepository writeRepo,
+        IUserRepository repo,
         IUnitOfWork unitOfWork,
         IMapper mapper
 
@@ -24,7 +19,7 @@ namespace ShoKanri.Application.UseCases.User.Register
 
             var user = mapper.Map<Domain.Entities.User>(request);
 
-            await writeRepo.CreateAsync(user);
+            await repo.CreateAsync(user);
             await unitOfWork.CommitAsync();
 
             

@@ -1,29 +1,42 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using AutoMapper;
 using ShoKanri.Domain.Contracts.Data.Services;
 using ShoKanri.Domain.Contracts.Data.Repositories;
-using ShoKanri.Domain.Contracts.Data.Repositories.Transaction;
-using ShoKanri.Domain.Contracts.Data.Repositories.Account;
 using ShoKanri.Http.Responses.Transaction;
-using ShoKanri.Http.Requests.Transaction;
+using ShoKanri.Http.Requests.Transaction.Transference;
 
-namespace ShoKanri.Application.UseCases.Transference.Register
+namespace ShoKanri.Application.UseCases.Transactions.Transference.Register
 {
     public class RegisterTransferenceUC(
-        ITransactionReadRepository readRepo,
-        ITransactionWriteRepository writeRepo,
-        IAccountReadRepository accountReadRepo,
-        IAccountWriteRepository accountWriteRepo,
+        ITransactionRepository repo,
         IUnitOfWork unitOfWork,
         IMapper mapper
     ) : IRegisterTransferenceUC
     {
-        public Task<TransactionResponse> CreateTransference(CreateTransactionRequest request)
+        public async Task<TransactionResponse> RegisterTransference(RegisterTransferenceRequest request)
         {
-            throw new NotImplementedException();
+             await ValidateAsync(request);
+
+            var transference = mapper.Map<Domain.Entities.Transactions.Transference>(request);
+
+            await repo.CreateAsync(transference);
+
+            await unitOfWork.CommitAsync();
+
+            return new TransactionResponse(transference.Id, transference.Amount, request.Type, DateTime.Now);
         }
+
+
+        private static async Task ValidateAsync(RegisterTransferenceRequest createTransferenceRequest) {
+                
+                var result = await new RegisterTransferenceValidator().ValidateAsync(createTransferenceRequest);
+
+                if (!result.IsValid) {
+
+                    throw new FluentValidation.ValidationException(result.Errors);
+                }
+
+                return;
+            
+            }
     }
 }

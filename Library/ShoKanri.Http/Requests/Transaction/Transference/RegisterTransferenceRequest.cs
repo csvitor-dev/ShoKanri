@@ -1,6 +1,6 @@
 using ShoKanri.Http.Enums;
 
-namespace ShoKanri.Http.Requests.Transaction;
+namespace ShoKanri.Http.Requests.Transaction.Transference;
 
 public record RegisterTransferenceRequest(
     int SourceId,

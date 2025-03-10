@@ -1,10 +1,5 @@
-    using System;
-    using System.Collections.Generic;
-    using System.Linq;
-    using System.Threading.Tasks;
     using AutoMapper;
-    using ShoKanri.Domain.Contracts.Data.Repositories.Account;
-    using ShoKanri.Domain.Contracts.Data.Repositories.User;
+    using ShoKanri.Domain.Contracts.Data.Repositories;
     using ShoKanri.Domain.Contracts.Data.Services;
     using ShoKanri.Http.Requests.Account;
     using ShoKanri.Http.Responses.Account;
@@ -12,8 +7,7 @@
     namespace ShoKanri.Application.UseCases.Account.Register
     {
         public class RegisterAccountUC (
-            IAccountReadRepository readRepo,
-            IAccountWriteRepository writeRepo,
+            IAccountRepository repo,
             IUnitOfWork unitOfWork,
             IMapper mapper
         ) : IRegisterAccountUC
@@ -25,19 +19,17 @@
 
                 var account = mapper.Map<Domain.Entities.Account>(request);
 
-                await writeRepo.CreateAsync(account);
+                await repo.CreateAsync(account);
 
                 await unitOfWork.CommitAsync();
 
-                return new CreateAccountResponse();  
+                return new RegisterAccountResponse(request.UserId, account.Name);  
             }
 
 
-            private async Task ValidateAsync(CreateAccountRequest createAccountRequest) {
+            private async Task ValidateAsync(RegisterAccountRequest createAccountRequest) {
                 
                 var result = await new RegisterAccountValidator().ValidateAsync(createAccountRequest);
-
-                // var emailExists = await readRepo.ExistsActiveUserWithEmailAsync(request.Email);
 
 
                 if (result.IsValid)
@@ -45,7 +37,6 @@
                 
                 var errorMessages = (from errors in result.Errors select errors.ErrorMessage).ToList();
 
-                //throw new ErrorOnValidationException(errorMessages);
             }
         }
     }

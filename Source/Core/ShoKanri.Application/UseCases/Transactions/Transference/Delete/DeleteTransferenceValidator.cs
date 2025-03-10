@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace ShoKanri.Application.UseCases.Transference.Delete
+namespace ShoKanri.Application.UseCases.Transactions.Transference.Delete
 {
     public class DeleteTransferenceValidator
     {

@@ -4,14 +4,13 @@ using System.Linq;
 using System.Threading.Tasks;
 using FluentValidation;
 using ShoKanri.Http.Requests.Transaction;
-using ShoKanri.Http.Responses.Transaction;
 
-namespace ShoKanri.Application.UseCases.Transactions.Income.Register
+namespace ShoKanri.Application.UseCases.Expense.Register
 {
-    public class RegisterIncomeValidator:  AbstractValidator<RegisterTransactionRequest>
+    public class RegisterExpenseValidator: AbstractValidator<RegisterTransactionRequest>
     {
         
-        public RegisterIncomeValidator() {
+        public RegisterExpenseValidator() {
 
             RuleFor((i) => i.Amount).NotEmpty().NotNull();
 

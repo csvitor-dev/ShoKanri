@@ -1,0 +1,2 @@
+namespace ShoKanri.Http.Responses.User;
+    public record DeleteUserResponse(int Id, string Name, string Email);

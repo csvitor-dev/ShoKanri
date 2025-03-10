@@ -4,12 +4,13 @@ using System.Linq;
 using System.Threading.Tasks;
 using FluentValidation;
 using ShoKanri.Http.Requests.Transaction;
+using ShoKanri.Http.Requests.Transaction.Transference;
 
-namespace ShoKanri.Application.UseCases.Transference.Register
+namespace ShoKanri.Application.UseCases.Transactions.Transference.Register
 {
-    public class RegisterTransferenceValidator: AbstractValidator<CreateTransactionRequest>
+    public class RegisterTransferenceValidator: AbstractValidator<RegisterTransferenceRequest>
     {
-        RegisterTransferenceValidator() {
+        public RegisterTransferenceValidator() {
             RuleFor(request => request.Amount)
                 .NotEmpty().GreaterThan(0);
 

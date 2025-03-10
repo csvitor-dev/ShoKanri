@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace ShoKanri.Application.UseCases.Income.Update
+namespace ShoKanri.Application.UseCases.Transactions.Income.Update
 {
     public class UpdateIncomeValidator
     {
