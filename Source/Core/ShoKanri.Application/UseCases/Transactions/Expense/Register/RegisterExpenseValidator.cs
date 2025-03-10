@@ -1,11 +1,7 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using FluentValidation;
 using ShoKanri.Http.Requests.Transaction;
 
-namespace ShoKanri.Application.UseCases.Expense.Register
+namespace ShoKanri.Application.UseCases.Transactions.Expense.Register
 {
     public class RegisterExpenseValidator: AbstractValidator<RegisterTransactionRequest>
     {

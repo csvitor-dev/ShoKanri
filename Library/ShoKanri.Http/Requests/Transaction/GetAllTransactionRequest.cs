@@ -1,2 +1,2 @@
 namespace ShoKanri.Http.Requests.Transaction;
-    public record GetAllTransactionRequest(int UserId);
+    public record GetAllTransactionRequest(int AccountId);

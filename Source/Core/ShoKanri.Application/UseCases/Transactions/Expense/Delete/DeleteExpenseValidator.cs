@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace ShoKanri.Application.UseCases.Expense.Delete
+namespace ShoKanri.Application.UseCases.Transactions.Expense.Delete
 {
     public class DeleteExpenseValidator
     {

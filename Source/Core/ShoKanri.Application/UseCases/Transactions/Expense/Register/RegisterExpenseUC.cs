@@ -1,14 +1,10 @@
-    using System;
-    using System.Collections.Generic;
-    using System.Linq;
-    using System.Threading.Tasks;
-    using AutoMapper;
+using AutoMapper;
 using ShoKanri.Domain.Contracts.Data.Repositories;
 using ShoKanri.Domain.Contracts.Data.Services;
     using ShoKanri.Http.Requests.Transaction;
     using ShoKanri.Http.Responses.Transaction;
 
-    namespace ShoKanri.Application.UseCases.Expense.Register
+    namespace ShoKanri.Application.UseCases.Transactions.Expense.Register
     {
         public class RegisterExpenseUc(
             ITransactionRepository repo,

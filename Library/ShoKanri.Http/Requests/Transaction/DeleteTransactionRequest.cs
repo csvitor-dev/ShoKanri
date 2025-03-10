@@ -1,3 +1,3 @@
 namespace ShoKanri.Http.Requests.Transaction;
 
-public record DeleteTransactionRequest(int Id, int UserId);
+public record DeleteTransactionRequest(int Id, int AccountId);

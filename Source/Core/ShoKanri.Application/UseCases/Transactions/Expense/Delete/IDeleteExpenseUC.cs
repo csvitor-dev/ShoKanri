@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 using ShoKanri.Http.Requests.Transaction;
 using ShoKanri.Http.Responses.Transaction;
 
-namespace ShoKanri.Application.UseCases.Expense.Delete
+namespace ShoKanri.Application.UseCases.Transactions.Expense.Delete
 {
     public interface IDeleteExpenseUC
     {
