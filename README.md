@@ -34,22 +34,26 @@ When finished, create a **Pull Request** for the **`develop`** _branch_!
 ## Project Structure
 
 ```text
-├───Docs/
-├───Library/
-│   ├───ShoKanri.Exception/
-│   └───ShoKanri.Http/
+├── Docs/
+├── Library/
+│   ├── ShoKanri.Exception/
+│   └── ShoKanri.Http/
 │
-├───Source/
-│   ├───Core/
-│   │   ├───ShoKanri.Application/
-│   │   └───ShoKanri.Domain/
-│   │
-│   ├───Infrastructure/
-│   │   └───ShoKanri.DAO/
-│   │
-│   └───Presenter/
-│       └───ShoKanri.API/
-└───Test/
+├── Source/
+│   ├── Core/
+│   │   ├── ShoKanri.Application/
+│   │   └── ShoKanri.Domain/
+│   │ 
+│   ├── Infrastructure/
+│   │   ├── ShoKanri.DAO/
+│   │   └── ShoKanri.IoC/
+│   │
+│   └── Presenter/
+│       └── ShoKanri.API/
+│
+└── Test/
+    ├── ShoKanri.Domain.Unit/
+    └── ShoKanri.Mock/
 ```
 
 > This is the target structure of the project
