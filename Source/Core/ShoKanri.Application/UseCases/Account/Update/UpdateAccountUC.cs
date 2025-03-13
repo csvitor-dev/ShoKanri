@@ -2,16 +2,44 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using AutoMapper;
+using ShoKanri.Domain.Contracts.Data.Repositories.Account;
+using ShoKanri.Domain.Contracts.Data.Services;
 using ShoKanri.Http.Requests.Account;
 using ShoKanri.Http.Responses.Account;
 
 namespace ShoKanri.Application.UseCases.Account.Update
 {
-    public class UpdateAccountUC : IUpdateAccountUC
+    public class UpdateAccountUC(
+        IAccountReadRepository readRepo,
+        IAccountWriteRepository writeRepo,
+        IUnitOfWork unitOfWork,
+        IMapper mapper
+
+    ) : IUpdateAccountUC
     {
-        public Task<UpdateAccountResponse> UpdateAccount(UpdateAccountRequest request)
+        public async Task<UpdateAccountResponse> UpdateAccount(UpdateAccountRequest request)
         {
-            throw new NotImplementedException();
+            await ValidateAsync(request);
+
+            var account = mapper.Map<Domain.Entities.Account>(request);
+
+            await writeRepo.UpdateAsync(account);
+            await unitOfWork.CommitAsync();
+
+            return new UpdateAccountResponse(account.Id, account.Name, account.Description);
+        }
+
+        private async Task ValidateAsync(UpdateAccountRequest updateAccountRequest) {
+
+            var result = await new UpdateAccountValidator().ValidateAsync(updateAccountRequest);
+
+
+            if (result.IsValid)
+                return;
+                
+                var errorMessages = (from errors in result.Errors select errors.ErrorMessage).ToList();
+
         }
     }
 }
