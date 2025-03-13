@@ -1,10 +1,5 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using FluentValidation;
 using ShoKanri.Http.Requests.Account;
-using ShoKanri.Exception;
 
 namespace ShoKanri.Application.UseCases.Account.Register
 {
@@ -17,7 +12,7 @@ namespace ShoKanri.Application.UseCases.Account.Register
 
             RuleFor((a) => a.InitialBalance).NotNull().NotEmpty();
 
-            RuleFor(a => a.Description).MaximumLength(500);
+            RuleFor((a) => a.Description).MaximumLength(500);
         }
     }
 }

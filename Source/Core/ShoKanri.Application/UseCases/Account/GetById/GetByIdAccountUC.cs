@@ -1,20 +1,21 @@
 using AutoMapper;
+using ShoKanri.Application.UseCases.Account.Register;
 using ShoKanri.Domain.Contracts.Data.Repositories.Account;
 using ShoKanri.Domain.Contracts.Data.Services;
 using ShoKanri.Http.Requests.Account;
 using ShoKanri.Http.Responses.Account;
 
-    namespace ShoKanri.Application.UseCases.Account.Register
+    namespace ShoKanri.Application.UseCases.Account.GetById
     {
-        public class RegisterAccountUC (
+        public class GetByIdAccountUC (
             IAccountReadRepository readRepo,
             IAccountWriteRepository writeRepo,
             IUnitOfWork unitOfWork,
             IMapper mapper
-        ) : IRegisterAccountUC
+        ) : IGetByIdAccountUC
         {
 
-            public async Task<RegisterAccountResponse> RegisterAccount(RegisterAccountRequest request)
+            public async Task<GetByIdAccountResponse> GetByIdAccount(GetByIdAccountRequest request)
             {
                 await ValidateAsync(request);
 
@@ -24,13 +25,13 @@ using ShoKanri.Http.Responses.Account;
 
                 await unitOfWork.CommitAsync();
 
-                return new RegisterAccountResponse(request.UserId, account.Name);  
+                return new GetByIdAccountResponse(account.Name, account.UserId, account.Balance, account.Description);  
             }
 
 
-            private async Task ValidateAsync(RegisterAccountRequest registerAccountRequest) {
+            private async Task ValidateAsync(GetByIdAccountRequest GetByIdAccountRequest) {
                 
-                var result = await new RegisterAccountValidator().ValidateAsync(registerAccountRequest);
+                var result = await new GetByIdAccountValidator().ValidateAsync(GetByIdAccountRequest);
 
 
                 if (result.IsValid)
