@@ -1,6 +1,7 @@
 using HealthChecks.UI.Client;
 using Microsoft.AspNetCore.Diagnostics.HealthChecks;
 using Microsoft.AspNetCore.Mvc;
+using ShoKanri.API.Filters;
 
 [assembly: ApiController]
 var builder = WebApplication.CreateBuilder(args);
@@ -17,6 +18,13 @@ builder.Services.AddRouting(options =>
 {
     options.LowercaseUrls = true;
     options.LowercaseQueryStrings = true;
+});
+
+// Apply exception handling with ExceptionFilters
+// see https://learn.microsoft.com/en-us/aspnet/web-api/overview/error-handling/exception-handling
+builder.Services.AddMvc(options =>
+{
+    options.Filters.Add(new ExceptionFilter());
 });
 
 var app = builder.Build();
