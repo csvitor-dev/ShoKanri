@@ -1,8 +1,20 @@
 
+using FluentValidation;
+using ShoKanri.Http.Requests.User;
+
 namespace ShoKanri.Application.UseCases.User.Update
 {
-    public class UpdateUserValidator
+    public class UpdateUserValidator: AbstractValidator<UpdateUserRequest>
     {
-        
+        public UpdateUserValidator() {
+
+            RuleFor((u) => u.Id).NotEmpty().NotNull();
+
+            RuleFor((u) => u.Name).NotEmpty().NotNull();
+
+            RuleFor((u) => u.Email).NotNull().NotEmpty().EmailAddress();
+
+
+        }
     }
 }

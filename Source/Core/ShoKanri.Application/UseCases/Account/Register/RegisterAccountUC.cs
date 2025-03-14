@@ -1,13 +1,14 @@
-    using AutoMapper;
-    using ShoKanri.Domain.Contracts.Data.Repositories;
-    using ShoKanri.Domain.Contracts.Data.Services;
-    using ShoKanri.Http.Requests.Account;
-    using ShoKanri.Http.Responses.Account;
+using AutoMapper;
+using ShoKanri.Domain.Contracts.Data.Repositories.Account;
+using ShoKanri.Domain.Contracts.Data.Services;
+using ShoKanri.Http.Requests.Account;
+using ShoKanri.Http.Responses.Account;
 
     namespace ShoKanri.Application.UseCases.Account.Register
     {
         public class RegisterAccountUC (
-            IAccountRepository repo,
+            IAccountReadRepository readRepo,
+            IAccountWriteRepository writeRepo,
             IUnitOfWork unitOfWork,
             IMapper mapper
         ) : IRegisterAccountUC
@@ -19,7 +20,7 @@
 
                 var account = mapper.Map<Domain.Entities.Account>(request);
 
-                await repo.CreateAsync(account);
+                await writeRepo.CreateAsync(account);
 
                 await unitOfWork.CommitAsync();
 
@@ -27,9 +28,9 @@
             }
 
 
-            private async Task ValidateAsync(RegisterAccountRequest createAccountRequest) {
+            private async Task ValidateAsync(RegisterAccountRequest registerAccountRequest) {
                 
-                var result = await new RegisterAccountValidator().ValidateAsync(createAccountRequest);
+                var result = await new RegisterAccountValidator().ValidateAsync(registerAccountRequest);
 
 
                 if (result.IsValid)

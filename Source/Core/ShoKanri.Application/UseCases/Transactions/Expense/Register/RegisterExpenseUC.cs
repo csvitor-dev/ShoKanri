@@ -1,5 +1,6 @@
 using AutoMapper;
 using ShoKanri.Domain.Contracts.Data.Repositories;
+using ShoKanri.Domain.Contracts.Data.Repositories.Transaction;
 using ShoKanri.Domain.Contracts.Data.Services;
     using ShoKanri.Http.Requests.Transaction;
     using ShoKanri.Http.Responses.Transaction;
@@ -7,7 +8,7 @@ using ShoKanri.Domain.Contracts.Data.Services;
     namespace ShoKanri.Application.UseCases.Transactions.Expense.Register
     {
         public class RegisterExpenseUc(
-            ITransactionRepository repo,
+            ITransactionWriteRepository writeRepo,
             IUnitOfWork unitOfWork,
             IMapper mapper
         ) : IRegisterExpenseUC
@@ -18,7 +19,7 @@ using ShoKanri.Domain.Contracts.Data.Services;
 
                 var expense = mapper.Map<Domain.Entities.Transactions.Expense>(request);
 
-                await repo.CreateAsync(expense);
+                await writeRepo.CreateAsync(expense);
 
                 await unitOfWork.CommitAsync();
 

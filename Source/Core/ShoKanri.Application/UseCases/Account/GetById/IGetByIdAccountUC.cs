@@ -5,11 +5,10 @@ using System.Threading.Tasks;
 using ShoKanri.Http.Requests.Account;
 using ShoKanri.Http.Responses.Account;
 
-namespace ShoKanri.Application.UseCases.Account.GetAll
+namespace ShoKanri.Application.UseCases.Account.GetById
 {
-    public interface IGetAllAccountsUC
+    public interface IGetByIdAccountUC
     {
-        public Task<GetAllAccountsResponse> GetAllAccounts(GetAllAccountsRequest request);
-
+        public Task<GetByIdAccountResponse> GetByIdAccount(GetByIdAccountRequest request);
     }
 }

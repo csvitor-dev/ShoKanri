@@ -3,11 +3,12 @@ using ShoKanri.Domain.Contracts.Data.Services;
 using ShoKanri.Domain.Contracts.Data.Repositories;
 using ShoKanri.Http.Responses.Transaction;
 using ShoKanri.Http.Requests.Transaction.Transference;
+using ShoKanri.Domain.Contracts.Data.Repositories.Transaction;
 
 namespace ShoKanri.Application.UseCases.Transactions.Transference.Register
 {
     public class RegisterTransferenceUC(
-        ITransactionRepository repo,
+        ITransactionWriteRepository writeRepo,
         IUnitOfWork unitOfWork,
         IMapper mapper
     ) : IRegisterTransferenceUC
@@ -18,7 +19,7 @@ namespace ShoKanri.Application.UseCases.Transactions.Transference.Register
 
             var transference = mapper.Map<Domain.Entities.Transactions.Transference>(request);
 
-            await repo.CreateAsync(transference);
+            await writeRepo.CreateAsync(transference);
 
             await unitOfWork.CommitAsync();
 
