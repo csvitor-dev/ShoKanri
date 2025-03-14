@@ -1,3 +1,3 @@
 namespace ShoKanri.Http.Responses.Account;
 
-public class RegisterAccountResponse(int Id);
+public record RegisterAccountResponse(int Id, string Name);
