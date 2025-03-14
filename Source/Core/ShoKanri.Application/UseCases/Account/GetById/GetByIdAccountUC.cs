@@ -9,8 +9,6 @@ using ShoKanri.Http.Responses.Account;
     {
         public class GetByIdAccountUC (
             IAccountReadRepository readRepo,
-            IAccountWriteRepository writeRepo,
-            IUnitOfWork unitOfWork,
             IMapper mapper
         ) : IGetByIdAccountUC
         {
@@ -19,13 +17,11 @@ using ShoKanri.Http.Responses.Account;
             {
                 await ValidateAsync(request);
 
-                var account = mapper.Map<Domain.Entities.Account>(request);
+                var account = await readRepo.FindByIdAsync(request.Id, request.UserId);
 
-                await writeRepo.CreateAsync(account);
+                var response = mapper.Map<GetByIdAccountResponse>(account);
 
-                await unitOfWork.CommitAsync();
-
-                return new GetByIdAccountResponse(account.Name, account.UserId, account.Balance, account.Description);  
+                return response;  
             }
 
 

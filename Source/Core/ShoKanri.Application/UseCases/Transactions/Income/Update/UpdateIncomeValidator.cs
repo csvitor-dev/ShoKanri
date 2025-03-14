@@ -1,11 +1,11 @@
 using FluentValidation;
 using ShoKanri.Http.Requests.Transaction;
 
-namespace ShoKanri.Application.UseCases.Transactions.Expense.Update
+namespace ShoKanri.Application.UseCases.Transactions.Income.Update
 {
-    public class UpdateExpenseValidator: AbstractValidator<UpdateTransactionRequest>
+    public class UpdateIncomeValidator: AbstractValidator<UpdateTransactionRequest>
     {
-        public UpdateExpenseValidator() {
+        public UpdateIncomeValidator() {
             
             RuleFor((e) => e.Id).NotEmpty().NotNull();
 

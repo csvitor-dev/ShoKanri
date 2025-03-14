@@ -8,7 +8,6 @@ using ShoKanri.Domain.Contracts.Data.Repositories.Transaction;
 namespace ShoKanri.Application.UseCases.Transactions.Transference.Register
 {
     public class RegisterTransferenceUC(
-        ITransactionReadRepository readRepo,
         ITransactionWriteRepository writeRepo,
         IUnitOfWork unitOfWork,
         IMapper mapper
