@@ -9,6 +9,6 @@ namespace ShoKanri.Application.UseCases.Account.GetById
 {
     public interface IGetByIdAccountUC
     {
-        // public Task<GetByIdAccountResponse> GetByIdAccount(GetByIdAccountRequest request);
+        public Task<GetByIdAccountResponse> GetByIdAccount(GetByIdAccountRequest request);
     }
 }
