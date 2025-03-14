@@ -14,7 +14,6 @@ namespace ShoKanri.Application.UseCases.User.Update
 
             RuleFor((u) => u.Email).NotNull().NotEmpty().EmailAddress();
 
-            RuleFor((u) => u.Password).NotEmpty().NotNull();
 
         }
     }
