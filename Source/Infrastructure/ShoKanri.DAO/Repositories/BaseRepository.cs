@@ -6,21 +6,10 @@ using ShoKanri.Domain.Entities;
 
 namespace ShoKanri.DAO.Repositories;
 
-public class BaseRepository<T>(AppDbContext context) :
-IReadOnlyRepository<T>, IWriteOnlyRepository<T> where T : BaseEntity
+public class BaseRepository<T>(AppDbContext context) : IWriteOnlyRepository<T> where T : BaseEntity
 {
     protected readonly AppDbContext _context = context;
-
-    public async Task<IList<T>> FindAllAsync()
-    {
-        return await _context.Set<T>().ToListAsync();
-    }
-
-    public async Task<T?> FindByIdAsync(int id)
-    {
-        return await _context.Set<T>().FirstOrDefaultAsync(t => t.Id == id);
-    }
-
+    
     public async Task CreateAsync(T entity)
     {
         _context.Add(entity);
@@ -29,12 +18,11 @@ IReadOnlyRepository<T>, IWriteOnlyRepository<T> where T : BaseEntity
 
     public async Task DeleteAsync(int id)
     {
-        T entity = await FindByIdAsync(id) ??
+        T entity = await _context.Set<T>().FirstOrDefaultAsync(t => t.Id == id) ??
                    throw new InvalidOperationException("Id for entry inexistent, try another");
 
         _context.Remove(entity);
         await _context.SaveChangesAsync();
-
     }
 
     public async Task UpdateAsync(T entity)
