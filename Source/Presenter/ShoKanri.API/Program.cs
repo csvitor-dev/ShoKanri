@@ -1,14 +1,18 @@
 using HealthChecks.UI.Client;
 using Microsoft.AspNetCore.Diagnostics.HealthChecks;
 using Microsoft.AspNetCore.Mvc;
-using ShoKanri.API.Filters;
 using ShoKanri.IoC;
+using ShoKanri.API.Extensions;
+using ShoKanri.API.Filters;
 
 [assembly: ApiController]
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddHealthChecks();
+
+// Apply custom authentication service witn JWT Bearer
+builder.Services.AddJwtAuthentication();
 
 builder.Services.ConfigurePersistenceApp(builder.Configuration);
 
@@ -31,6 +35,9 @@ builder.Services.AddMvc(options =>
 });
 
 var app = builder.Build();
+
+app.UseAuthentication();
+app.UseAuthorization();
 
 // Configure the HTTP request pipeline.
 app.UseSwagger();
