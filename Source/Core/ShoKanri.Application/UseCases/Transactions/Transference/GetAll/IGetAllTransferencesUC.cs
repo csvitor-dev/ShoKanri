@@ -5,6 +5,6 @@ namespace ShoKanri.Application.UseCases.Transactions.Transference.GetAll
 {
     public interface IGetAllTransferencesUC
     {
-        public Task<TransactionResponse> GetAllTransference(GetAllTransferenceRequest request);
+        public Task<TransactionResponse> GetAllTransferences(GetAllTransferencesRequest request);
     }
 }

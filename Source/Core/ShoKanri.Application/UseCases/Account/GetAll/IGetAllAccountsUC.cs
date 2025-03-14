@@ -9,7 +9,7 @@ namespace ShoKanri.Application.UseCases.Account.GetAll
 {
     public interface IGetAllAccountsUC
     {
-        public Task<GetAllAccountResponse> GetAllAccount(GetAllAccountRequest request);
+        public Task<GetAllAccountsResponse> GetAllAccounts(GetAllAccountsRequest request);
 
     }
 }
