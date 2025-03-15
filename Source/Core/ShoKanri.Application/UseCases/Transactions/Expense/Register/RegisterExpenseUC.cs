@@ -7,7 +7,7 @@ using ShoKanri.Domain.Contracts.Data.Services;
 
     namespace ShoKanri.Application.UseCases.Transactions.Expense.Register
     {
-        public class RegisterExpenseUc(
+        public class RegisterExpenseUC(
             ITransactionWriteRepository writeRepo,
             IUnitOfWork unitOfWork,
             IMapper mapper
