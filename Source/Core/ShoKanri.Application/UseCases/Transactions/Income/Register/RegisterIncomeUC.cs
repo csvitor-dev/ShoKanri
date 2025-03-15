@@ -8,7 +8,6 @@ using ShoKanri.Http.Responses.Transaction;
 namespace ShoKanri.Application.UseCases.Transactions.Income.Register
 {
     public class RegisterIncomeUC(
-        ITransactionReadRepository readRepo,
         ITransactionWriteRepository writeRepo,
         IUnitOfWork unitOfWork,
         IMapper mapper

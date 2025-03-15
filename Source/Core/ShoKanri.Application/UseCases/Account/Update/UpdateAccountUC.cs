@@ -1,7 +1,3 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using AutoMapper;
 using ShoKanri.Domain.Contracts.Data.Repositories.Account;
 using ShoKanri.Domain.Contracts.Data.Services;
@@ -11,7 +7,6 @@ using ShoKanri.Http.Responses.Account;
 namespace ShoKanri.Application.UseCases.Account.Update
 {
     public class UpdateAccountUC(
-        IAccountReadRepository readRepo,
         IAccountWriteRepository writeRepo,
         IUnitOfWork unitOfWork,
         IMapper mapper
@@ -30,15 +25,16 @@ namespace ShoKanri.Application.UseCases.Account.Update
             return new UpdateAccountResponse(account.Id, account.Name, account.Description);
         }
 
-        private async Task ValidateAsync(UpdateAccountRequest updateAccountRequest) {
+        private async Task ValidateAsync(UpdateAccountRequest updateAccountRequest)
+        {
 
             var result = await new UpdateAccountValidator().ValidateAsync(updateAccountRequest);
 
 
             if (result.IsValid)
                 return;
-                
-                var errorMessages = (from errors in result.Errors select errors.ErrorMessage).ToList();
+
+            var errorMessages = (from errors in result.Errors select errors.ErrorMessage).ToList();
 
         }
     }

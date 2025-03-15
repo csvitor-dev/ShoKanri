@@ -7,7 +7,6 @@ using ShoKanri.Http.Responses.User;
 namespace ShoKanri.Application.UseCases.User.Update
 {
     public class UpdateUserUC (
-        IUserReadRepository readRepo,
         IUserWriteRepository writeRepo,
         IUnitOfWork unitOfWork,
         IMapper mapper

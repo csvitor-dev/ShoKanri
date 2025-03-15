@@ -6,29 +6,27 @@ using ShoKanri.Http.Responses.User;
 namespace ShoKanri.Application.UseCases.User.Delete
 {
     public class DeleteUserUC(
-        IUserReadRepository readRepo,
         IUserWriteRepository writeRepo,
         IUnitOfWork unitOfWork
-    ): IDeleteUserUC
+    ) : IDeleteUserUC
     {
         public async Task<DeleteUserResponse> DeleteUser(DeleteUserRequest request)
         {
             await ValidateAsync(request);
 
-            var user = await readRepo.FindByIdAsync(request.Id);
-
-            await writeRepo.DeleteAsync(user);
+            await writeRepo.DeleteAsync(request.Id);
             await unitOfWork.CommitAsync();
 
-            return new DeleteUserResponse(user.Id, user.Name);
+            return new DeleteUserResponse(request.Id);
         }
 
 
-        private static async Task ValidateAsync(DeleteUserRequest deleteUserRequest ) {
+        private static async Task ValidateAsync(DeleteUserRequest deleteUserRequest)
+        {
 
             var result = await new DeleteUserValidator().ValidateAsync(deleteUserRequest);
 
-            if(result.IsValid) return;
+            if (result.IsValid) return;
 
 
 

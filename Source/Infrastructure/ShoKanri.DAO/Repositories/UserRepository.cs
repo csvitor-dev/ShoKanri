@@ -17,4 +17,9 @@ IUserReadRepository, IUserWriteRepository
     {
         return await _context.Set<User>().FirstOrDefaultAsync(u => u.Id == id);
     }
+
+    public async Task<User?> FindByEmailAsync(string email)
+    {
+        return await _context.Users.FirstOrDefaultAsync(user => user.Email == email);
+    }
 }

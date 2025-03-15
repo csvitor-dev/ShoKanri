@@ -1,5 +1,6 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Filters;
+using Npgsql.PostgresTypes;
 using ShoKanri.Exception.Base;
 using ShoKanri.Http;
 
@@ -30,6 +31,6 @@ internal class ExceptionFilter : IExceptionFilter
     {
         context.HttpContext
             .Response.StatusCode = StatusCodes.Status500InternalServerError;
-        context.Result = new ObjectResult(new { Error = "Unknown error occurred" });
+        context.Result = new ObjectResult(ApiResponse.Fail(new { Unknown = context.Exception.Message }));
     }
 }

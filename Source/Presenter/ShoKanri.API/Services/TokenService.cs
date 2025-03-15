@@ -3,13 +3,13 @@ using System.Security.Claims;
 using System.Security.Cryptography;
 using Microsoft.IdentityModel.Tokens;
 using ShoKanri.API.Helpers;
-using ShoKanri.Domain.Entities;
+using ShoKanri.Http.Dto;
 
 namespace ShoKanri.API.Services;
 
 public class TokenService(RSA privateKey)
 {
-    internal string GenerateJwtToken(User user)
+    internal string GenerateJwtToken(LoginUserDto user)
     {
         var securityKey = new RsaSecurityKey(privateKey);
         var credentials = new SigningCredentials(securityKey, SecurityAlgorithms.RsaSha256);

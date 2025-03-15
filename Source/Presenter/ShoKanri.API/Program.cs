@@ -2,6 +2,7 @@ using HealthChecks.UI.Client;
 using Microsoft.AspNetCore.Diagnostics.HealthChecks;
 using Microsoft.AspNetCore.Mvc;
 using ShoKanri.IoC;
+using ShoKanri.Application;
 using ShoKanri.API.Extensions;
 using ShoKanri.API.Filters;
 
@@ -15,6 +16,7 @@ builder.Services.AddHealthChecks();
 builder.Services.AddJwtAuthentication();
 
 builder.Services.ConfigurePersistenceApp(builder.Configuration);
+builder.Services.AddApplication(builder.Configuration);
 
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();

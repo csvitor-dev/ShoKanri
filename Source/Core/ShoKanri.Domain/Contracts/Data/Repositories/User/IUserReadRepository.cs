@@ -4,4 +4,5 @@ public interface IUserReadRepository
 {
     Task<Entities.User?> FindByIdAsync(int id);
     Task<bool> FindActiveEmailAsync(string email);
+    Task<Entities.User?> FindByEmailAsync(string email);
 }
