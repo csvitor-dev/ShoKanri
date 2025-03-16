@@ -8,6 +8,11 @@ namespace ShoKanri.DAO.Repositories;
 public class UserRepository(AppDbContext _context) : BaseRepository<User>(_context),
 IUserReadRepository, IUserWriteRepository
 {
+    public Task DeleteAsync(User user)
+    {
+        throw new NotImplementedException();
+    }
+
     public async Task<bool> FindActiveEmailAsync(string email)
     {
         return await _context.Set<User>().AnyAsync(u => u.Email == email);

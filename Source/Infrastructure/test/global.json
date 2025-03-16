@@ -1,0 +1,8 @@
+{
+  "ConnectionStrings": {
+    "PostgreSql" : "Server=localhost;Port=5432;Database=shokanri;;Username=developmentsk;Password=developmentsk"
+  },
+  "sdk": {
+    "version": "SDK_VERSION"
+  }
+}

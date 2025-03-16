@@ -3,15 +3,24 @@ using ShoKanri.Domain.Entities.Transactions;
 namespace ShoKanri.Domain.Entities;
 
 public sealed class Account
-    (int id, int userId, string name, decimal balance = 0.0m) : BaseEntity(id)
+: BaseEntity
 {
     private readonly IList<Transaction> _statement = [];
 
-    public int UserId { get; init; } = userId;
-    public string Name { get; private set; } = name;
-    public decimal Balance { get; private set; } = balance;
+    private Account(){}
+
+    public Account(int id, int userId, string name, decimal balance = 0.0m) : base(id)
+    {
+        UserId = userId;
+        Name = name;
+        Balance = balance;
+    }
+
+    public int UserId { get; init; }
+    public string? Name { get; private set; }
+    public decimal Balance { get; private set; }
     public string Description { get; private set; } = string.Empty;
-    public DateTimeOffset UpdatedOn { get; private set; }  = DateTimeOffset.Now;
+    public DateTimeOffset UpdatedOn { get; private set; }  = DateTimeOffset.Now.UtcDateTime;
     public bool Active { get; private set; } = true;
 
     public Transaction[] Statement => [.. _statement];
