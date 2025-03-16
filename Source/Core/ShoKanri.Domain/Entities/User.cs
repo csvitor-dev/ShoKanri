@@ -1,23 +1,14 @@
 namespace ShoKanri.Domain.Entities;
 
-public sealed class User
-: BaseEntity
+public sealed class User : BaseEntity
 {
     private readonly IList<Account> _accounts = [];
 
-    private User() {}
-    public User(int id, string name, string email, string password) : base(id)
-    {
-        Name = name;
-        Email = email;
-        Password = password;
-    }
-
-    public string? Name { get; private set; }
-    public string? Email { get; private set; }
-    public string? Password { get; private set; }
-    public DateTimeOffset UpdatedOn { get; private set; } = DateTimeOffset.Now.UtcDateTime;
-    public bool Active { get; private set; } = true;
+    public string? Name { get; set; }
+    public string? Email { get; set; }
+    public string? Password { get; set; }
+    public DateTimeOffset UpdatedOn { get; set; } = DateTimeOffset.Now.UtcDateTime;
+    public bool Active { get; set; } = true;
 
     public Account? GetAccount(int accountId)
         => _accounts.SingleOrDefault(account => account.Id == accountId);

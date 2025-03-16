@@ -7,21 +7,12 @@ public sealed class Account
 {
     private readonly IList<Transaction> _statement = [];
 
-    private Account(){}
-
-    public Account(int id, int userId, string name, decimal balance = 0.0m) : base(id)
-    {
-        UserId = userId;
-        Name = name;
-        Balance = balance;
-    }
-
     public int UserId { get; init; }
-    public string? Name { get; private set; }
-    public decimal Balance { get; private set; }
-    public string Description { get; private set; } = string.Empty;
-    public DateTimeOffset UpdatedOn { get; private set; }  = DateTimeOffset.Now.UtcDateTime;
-    public bool Active { get; private set; } = true;
+    public string? Name { get; set; }
+    public decimal Balance { get; set; }
+    public string Description { get; set; } = string.Empty;
+    public DateTimeOffset UpdatedOn { get; set; }  = DateTimeOffset.Now.UtcDateTime;
+    public bool Active { get; set; } = true;
 
     public Transaction[] Statement => [.. _statement];
 

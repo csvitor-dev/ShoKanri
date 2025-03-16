@@ -1,16 +1,8 @@
 namespace ShoKanri.Domain.Entities.Transactions;
 
-public sealed class Transference
-: Transaction
+public sealed class Transference : Transaction
 {
-    private readonly Account? destination;
-
-    private Transference () {}
-
-    public Transference(int id, int sourceId, decimal amount, Account destination) : base(id, sourceId, amount)
-    {
-        this.destination = destination;
-    }
+    public readonly Account? destination;
 
     protected override void Transact(Account account)
     {
