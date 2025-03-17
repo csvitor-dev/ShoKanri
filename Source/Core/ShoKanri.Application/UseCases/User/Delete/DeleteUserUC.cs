@@ -27,10 +27,6 @@ namespace ShoKanri.Application.UseCases.User.Delete
             var result = await new DeleteUserValidator().ValidateAsync(deleteUserRequest);
 
             if (result.IsValid) return;
-
-
-
         }
-
     }
 }

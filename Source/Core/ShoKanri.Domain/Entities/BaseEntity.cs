@@ -1,7 +1,7 @@
 namespace ShoKanri.Domain.Entities;
 
-public abstract class BaseEntity(int id)
+public abstract class BaseEntity
 {
-    public int Id { get; } = id;
-    public DateTimeOffset CreatedOn { get; init; } = DateTimeOffset.Now;
+    public int Id { get; set; }
+    public DateTimeOffset CreatedOn { get; init; } = DateTimeOffset.Now.UtcDateTime;
 }

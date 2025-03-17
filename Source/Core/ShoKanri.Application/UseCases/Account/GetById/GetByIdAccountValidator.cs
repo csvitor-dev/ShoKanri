@@ -1,7 +1,7 @@
 using FluentValidation;
 using ShoKanri.Http.Requests.Account;
 
-namespace ShoKanri.Application.UseCases.Account.Register
+namespace ShoKanri.Application.UseCases.Account.GetById
 {
     public class GetByIdAccountValidator : AbstractValidator<GetByIdAccountRequest>
     {

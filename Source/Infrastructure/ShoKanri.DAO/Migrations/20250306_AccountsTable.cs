@@ -11,7 +11,7 @@ public class AccountsTable : Migration
     {
         Create.Table("Accounts")
               .WithColumn("Id").AsInt32().PrimaryKey().Identity()
-              .WithColumn("Active").AsByte().NotNullable()
+              .WithColumn("Active").AsBoolean().NotNullable()
               .WithColumn("CreatedOn").AsDateTimeOffset().NotNullable()
               .WithColumn("UpdatedOn").AsDateTimeOffset().NotNullable()
               .WithColumn("UserId").AsInt32().NotNullable()

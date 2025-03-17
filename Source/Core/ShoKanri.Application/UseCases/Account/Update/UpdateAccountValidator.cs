@@ -7,7 +7,6 @@ namespace ShoKanri.Application.UseCases.Account.Update
     {
         public UpdateAccountValidator()
         {
-
             RuleFor((a) => a.Id).NotEmpty().NotNull();
 
             RuleFor((a) => a.UserId).NotEmpty().NotNull();

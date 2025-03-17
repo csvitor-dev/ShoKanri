@@ -12,7 +12,6 @@ namespace ShoKanri.Application.UseCases.Account.Register
         IMapper mapper
     ) : IRegisterAccountUC
     {
-
         public async Task<RegisterAccountResponse> RegisterAccount(RegisterAccountRequest request)
         {
             await ValidateAsync(request);
@@ -23,7 +22,7 @@ namespace ShoKanri.Application.UseCases.Account.Register
 
             await unitOfWork.CommitAsync();
 
-            return new RegisterAccountResponse(request.UserId, account.Name);
+            return new RegisterAccountResponse(request.UserId, account.Name!);
         }
 
 
@@ -37,7 +36,6 @@ namespace ShoKanri.Application.UseCases.Account.Register
                 return;
 
             var errorMessages = (from errors in result.Errors select errors.ErrorMessage).ToList();
-
         }
     }
 }

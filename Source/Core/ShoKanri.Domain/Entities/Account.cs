@@ -3,16 +3,16 @@ using ShoKanri.Domain.Entities.Transactions;
 namespace ShoKanri.Domain.Entities;
 
 public sealed class Account
-    (int id, int userId, string name, decimal balance = 0.0m) : BaseEntity(id)
+: BaseEntity
 {
     private readonly IList<Transaction> _statement = [];
 
-    public int UserId { get; init; } = userId;
-    public string Name { get; private set; } = name;
-    public decimal Balance { get; private set; } = balance;
-    public string Description { get; private set; } = string.Empty;
-    public DateTimeOffset UpdatedOn { get; private set; }  = DateTimeOffset.Now;
-    public bool Active { get; private set; } = true;
+    public int UserId { get; init; }
+    public string? Name { get; set; }
+    public decimal Balance { get; set; }
+    public string Description { get; set; } = string.Empty;
+    public DateTimeOffset UpdatedOn { get; set; }  = DateTimeOffset.Now.UtcDateTime;
+    public bool Active { get; set; } = true;
 
     public Transaction[] Statement => [.. _statement];
 

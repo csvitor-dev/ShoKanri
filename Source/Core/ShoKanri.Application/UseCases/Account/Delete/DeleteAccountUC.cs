@@ -21,7 +21,7 @@ namespace ShoKanri.Application.UseCases.Account.Delete
             await writeRepo.DeleteAsync(request.Id);
             await unitOfWork.CommitAsync();
 
-            return new DeleteAccountResponse(account.Id, account.Name);
+            return new DeleteAccountResponse(account.Id, account.Name!);
         }
 
         private async Task ValidateAsync(DeleteAccountRequest deleteAccountRequest) {

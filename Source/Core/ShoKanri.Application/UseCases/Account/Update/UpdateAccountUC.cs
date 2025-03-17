@@ -10,7 +10,6 @@ namespace ShoKanri.Application.UseCases.Account.Update
         IAccountWriteRepository writeRepo,
         IUnitOfWork unitOfWork,
         IMapper mapper
-
     ) : IUpdateAccountUC
     {
         public async Task<UpdateAccountResponse> UpdateAccount(UpdateAccountRequest request)
@@ -22,12 +21,11 @@ namespace ShoKanri.Application.UseCases.Account.Update
             await writeRepo.UpdateAsync(account);
             await unitOfWork.CommitAsync();
 
-            return new UpdateAccountResponse(account.Id, account.Name, account.Description);
+            return new UpdateAccountResponse(account.Id, account.Name!, account.Description);
         }
 
         private async Task ValidateAsync(UpdateAccountRequest updateAccountRequest)
         {
-
             var result = await new UpdateAccountValidator().ValidateAsync(updateAccountRequest);
 
 
@@ -35,7 +33,6 @@ namespace ShoKanri.Application.UseCases.Account.Update
                 return;
 
             var errorMessages = (from errors in result.Errors select errors.ErrorMessage).ToList();
-
         }
     }
 }

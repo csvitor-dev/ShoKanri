@@ -10,7 +10,7 @@ public class UsersTable : Migration
     {
         Create.Table("Users")
             .WithColumn("Id").AsInt32().PrimaryKey().Identity()
-            .WithColumn("Active").AsByte().NotNullable()
+            .WithColumn("Active").AsBoolean().NotNullable()
             .WithColumn("CreatedOn").AsDateTimeOffset().NotNullable()
             .WithColumn("UpdatedOn").AsDateTimeOffset().NotNullable()
             .WithColumn("Name").AsString(255).NotNullable()
