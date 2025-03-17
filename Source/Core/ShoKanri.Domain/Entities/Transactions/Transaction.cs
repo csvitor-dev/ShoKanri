@@ -1,11 +1,10 @@
 namespace ShoKanri.Domain.Entities.Transactions;
 
-public abstract class Transaction
-    (int id, int accountId, decimal amount) : BaseEntity(id)
+public abstract class Transaction : BaseEntity
 {
-    public int AccountId { get; init; } = accountId;
-    public decimal Amount { get; protected set; } = amount;
-    
+    public int AccountId { get; init; }
+    public decimal Amount { get; set; }
+
     protected abstract void Transact(Account account);
 
     public void Execute(Account account)
