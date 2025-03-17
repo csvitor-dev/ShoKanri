@@ -8,6 +8,7 @@ using ShoKanri.Http.Responses.User;
 namespace ShoKanri.Application.UseCases.User.Register
 {
     public class RegisterUserUC(
+        IUserReadRepository readRepo,
         IUserWriteRepository writeRepo,
         IUnitOfWork unitOfWork,
         IMapper mapper,
@@ -28,20 +29,18 @@ namespace ShoKanri.Application.UseCases.User.Register
         }
 
 
-        private static async Task ValidateAsync(RegisterUserRequest registerUserRequest)
+        private async Task ValidateAsync(RegisterUserRequest request)
         {
 
-            var result = await new RegisterUserValidator().ValidateAsync(registerUserRequest);
+            var result = await new RegisterUserValidator().ValidateAsync(request);
+            var emailExists = await readRepo.FindActiveEmailAsync(request.Email);
 
-            // var emailExists = await readRepo.ExistsActiveUserWithEmailAsync(request.Email);
-
-
-            if (result.IsValid)
+            if (result.IsValid && emailExists is false)
                 return;
 
             var errorMessages = (from errors in result.Errors select errors.ErrorMessage).ToList();
 
-            //throw new ErrorOnValidationException(errorMessages);
+            throw new InvalidOperationException(errorMessages[0]);
         }
     }
 }
