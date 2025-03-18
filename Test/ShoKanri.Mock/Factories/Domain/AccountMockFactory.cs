@@ -10,7 +10,13 @@ public abstract class AccountMockFactory : MockFactory
         var name = Faker.Finance.AccountName();
         amount ??= Faker.Random.Decimal(0m, 10_000m);
 
-        return new Account(id, userId, name, amount.Value);
+        return new Account
+        {
+            Id = id,
+            UserId = userId,
+            Name = name,
+            Balance = amount.Value
+        };
     }
 
     public static IEnumerable<Account> CreateMock(int count, int userId)

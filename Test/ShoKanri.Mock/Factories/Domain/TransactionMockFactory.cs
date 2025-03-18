@@ -17,20 +17,36 @@ public abstract class TransactionMockFactory : MockFactory
     {
         var (id, value) = GetBaseValues(amount);
 
-        return new Income(id, accountId, value);
+        return new Income
+        {
+            Id = id,
+            AccountId = accountId,
+            Amount = value
+        };
     }
 
     public static Transaction CreateExpenseMock(int accountId = 0, decimal? amount = null)
     {
         var (id, value) = GetBaseValues(amount);
 
-        return new Expense(id, accountId, value);
+        return new Expense
+        {
+            Id = id,
+            AccountId = accountId,
+            Amount = value
+        };
     }
 
     public static Transaction CreateTransferenceMock(Account destination, int sourceId = 0, decimal? amount = null)
     {
         var (id, value) = GetBaseValues(amount);
 
-        return new Transference(id, sourceId, value, destination);
+        return new Transference
+        {
+            Id = id,
+            AccountId = sourceId,
+            Amount = value,
+            Destination = destination
+        };
     }
 }
