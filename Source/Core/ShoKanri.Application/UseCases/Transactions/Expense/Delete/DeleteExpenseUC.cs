@@ -10,7 +10,7 @@ namespace ShoKanri.Application.UseCases.Transactions.Expense.Delete
         ITransactionWriteRepository writeRepo,
         ITransactionReadRepository readRepo,
         IUnitOfWork unitOfWork,
-        Mapper mapper
+        IMapper mapper
 
     ) : IDeleteExpenseUC
     {

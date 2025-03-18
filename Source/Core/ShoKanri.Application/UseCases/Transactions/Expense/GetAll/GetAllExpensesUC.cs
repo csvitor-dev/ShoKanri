@@ -7,7 +7,7 @@ namespace ShoKanri.Application.UseCases.Transactions.Expense.GetAll
 {
     public class GetAllExpensesUC(
         ITransactionReadRepository readRepo,
-        Mapper mapper
+        IMapper mapper
 
     ) : IGetAllExpensesUC
     {

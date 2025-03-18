@@ -10,7 +10,7 @@ namespace ShoKanri.Application.UseCases.Transactions.Income.Delete
         ITransactionWriteRepository writeRepo,
         ITransactionReadRepository readRepo,
         IUnitOfWork unitOfWork,
-        Mapper mapper
+        IMapper mapper
     ) : IDeleteIncomeUC
     {
         public async Task<TransactionResponse> DeleteIncome(DeleteTransactionRequest request)

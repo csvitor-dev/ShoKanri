@@ -7,7 +7,7 @@ namespace ShoKanri.Application.UseCases.Account.GetAll
 {
     public class GetAllAccountsUC(
         IAccountReadRepository readRepo,
-        Mapper mapper
+        IMapper mapper
 
     ) : IGetAllAccountsUC
     {
@@ -25,7 +25,7 @@ namespace ShoKanri.Application.UseCases.Account.GetAll
         }
 
 
-        private async Task ValidateAsync(GetAllAccountsRequest getAllAccountRequest) {
+        private static async Task ValidateAsync(GetAllAccountsRequest getAllAccountRequest) {
 
             var result =  await new GetAllAccountsValidator().ValidateAsync(getAllAccountRequest);
 

@@ -10,7 +10,7 @@ namespace ShoKanri.Application.UseCases.Transactions.Transference.Delete
         ITransactionWriteRepository writeRepo,
         ITransactionReadRepository readRepo,
         IUnitOfWork unitOfWork,
-        Mapper mapper
+        IMapper mapper
 
     ) : IDeleteTransferenceUC
     {

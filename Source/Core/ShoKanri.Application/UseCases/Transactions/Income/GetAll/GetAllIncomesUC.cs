@@ -7,7 +7,7 @@ namespace ShoKanri.Application.UseCases.Transactions.Income.GetAll
 {
     public class GetAllIncomesUC(
         ITransactionReadRepository readRepo,
-        Mapper mapper
+        IMapper mapper
     ): IGetAllIncomesUC
     {
         public async Task<TransactionResponse> GetAllExpense(GetAllTransactionRequest request)

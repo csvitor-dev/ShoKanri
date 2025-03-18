@@ -7,7 +7,7 @@ namespace ShoKanri.Application.UseCases.Transactions.Transference.GetAll
 {
     public class GetAllTransferencesUC (
         ITransactionReadRepository readRepo,
-        Mapper mapper
+        IMapper mapper
 
     ): IGetAllTransferencesUC
     {
