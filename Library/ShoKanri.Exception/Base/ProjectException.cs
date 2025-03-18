@@ -1,11 +1,9 @@
 using System.Net;
 namespace ShoKanri.Exception.Base;
 
-public class ProjectException: ApplicationException
+public abstract class ProjectException(HttpStatusCode status) : ApplicationException
 {
-    public HttpStatusCode StatusCode { get; set; }
+    public int StatusCode { get => Convert.ToInt32(status); }
 
+    public abstract IList<string> GetErrorMessages();
 }
-
-
-

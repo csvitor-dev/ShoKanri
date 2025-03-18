@@ -7,7 +7,6 @@ using ShoKanri.Http.Responses.User;
 namespace ShoKanri.Application.UseCases.User.Update
 {
     public class UpdateUserUC (
-        IUserReadRepository readRepo,
         IUserWriteRepository writeRepo,
         IUnitOfWork unitOfWork,
         IMapper mapper
@@ -23,7 +22,7 @@ namespace ShoKanri.Application.UseCases.User.Update
             await writeRepo.UpdateAsync(UpdateUser);
             await unitOfWork.CommitAsync();
 
-            return new UpdateUserResponse(UpdateUser.Id, UpdateUser.Name, UpdateUser.Email);
+            return new UpdateUserResponse(UpdateUser.Id, UpdateUser.Name!, UpdateUser.Email!);
         }
 
         private static async Task ValidateAsync(UpdateUserRequest updateUserRequest ) {

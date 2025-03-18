@@ -7,8 +7,9 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="AspNetCore.HealthChecks.UI.Client" Version="8.0.1" />
+    <PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="8.0.14" />
     <PackageReference Include="Microsoft.AspNetCore.OpenApi" Version="8.0.11" />
-    <PackageReference Include="Microsoft.Extensions.Diagnostics.HealthChecks.ResourceUtilization" Version="8.10.0" />
     <PackageReference Include="Swashbuckle.AspNetCore" Version="6.6.2" />
   </ItemGroup>
 
@@ -17,7 +18,6 @@
     <ProjectReference Include="..\..\..\Library\ShoKanri.Exception\ShoKanri.Exception.csproj" />
     <ProjectReference Include="..\..\..\Library\ShoKanri.Http\ShoKanri.Http.csproj" />
     <ProjectReference Include="..\..\Core\ShoKanri.Application\ShoKanri.Application.csproj" />
-    <ProjectReference Include="..\..\Infrastructure\ShoKanri.DAO\ShoKanri.DAO.csproj" />
   </ItemGroup>
 
 </Project>

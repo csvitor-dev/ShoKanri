@@ -20,6 +20,7 @@ using ShoKanri.Application.UseCases.Transactions.Transference.GetAll;
 using ShoKanri.Application.UseCases.Transactions.Transference.Register;
 using ShoKanri.Application.UseCases.Transactions.Transference.Update;
 using ShoKanri.Application.UseCases.User.Delete;
+using ShoKanri.Application.UseCases.User.Login;
 using ShoKanri.Application.UseCases.User.Register;
 using ShoKanri.Application.UseCases.User.Update;
 
@@ -53,27 +54,26 @@ public static class ApplicationDIExtension
 
     private static void AddUserUseCases(IServiceCollection services)
     {
+        services.AddScoped<IDeleteUserUC, DeleteUserUC>();
+        services.AddScoped<ILoginUserUC, LoginUserUC>();
         services.AddScoped<IRegisterUserUC, RegisterUserUC>();
         services.AddScoped<IUpdateUserUC, UpdateUserUC>();
-        services.AddScoped<IDeleteUserUC, DeleteUserUC>();   
     }
-
 
     private static void AddAccountUseCases(IServiceCollection services)
     {
         services.AddScoped<IRegisterAccountUC, RegisterAccountUC>();
         services.AddScoped<IUpdateAccountUC, UpdateAccountUC>();
-        services.AddScoped<IDeleteAccountUC, DeleteAccountUC>(); 
+        services.AddScoped<IDeleteAccountUC, DeleteAccountUC>();
         services.AddScoped<IGetAllAccountsUC, GetAllAccountsUC>();
         services.AddScoped<IGetByIdAccountUC, GetByIdAccountUC>();
     }
-
 
     private static void AddIncomeUseCases(IServiceCollection services)
     {
         services.AddScoped<IRegisterIncomeUC, RegisterIncomeUC>();
         services.AddScoped<IUpdateIncomeUC, UpdateIncomeUC>();
-        services.AddScoped<IDeleteIncomeUC, DeleteIncomeUC>(); 
+        services.AddScoped<IDeleteIncomeUC, DeleteIncomeUC>();
         services.AddScoped<IGetAllIncomesUC, GetAllIncomesUC>();
     }
 
@@ -81,7 +81,7 @@ public static class ApplicationDIExtension
     {
         services.AddScoped<IRegisterExpenseUC, RegisterExpenseUC>();
         services.AddScoped<IUpdateExpenseUC, UpdateExpenseUC>();
-        services.AddScoped<IDeleteExpenseUC, DeleteExpenseUC>(); 
+        services.AddScoped<IDeleteExpenseUC, DeleteExpenseUC>();
         services.AddScoped<IGetAllExpensesUC, GetAllExpensesUC>();
     }
 
@@ -89,9 +89,7 @@ public static class ApplicationDIExtension
     {
         services.AddScoped<IRegisterTransferenceUC, RegisterTransferenceUC>();
         services.AddScoped<IUpdateTransferenceUC, UpdateTransferenceUC>();
-        services.AddScoped<IDeleteTransferenceUC, DeleteTransferenceUC>(); 
+        services.AddScoped<IDeleteTransferenceUC, DeleteTransferenceUC>();
         services.AddScoped<IGetAllTransferencesUC, GetAllTransferencesUC>();
     }
-
-    
 }

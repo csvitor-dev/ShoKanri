@@ -4,40 +4,38 @@ using ShoKanri.Domain.Contracts.Data.Services;
 using ShoKanri.Http.Requests.Account;
 using ShoKanri.Http.Responses.Account;
 
-    namespace ShoKanri.Application.UseCases.Account.Register
+namespace ShoKanri.Application.UseCases.Account.Register
+{
+    public class RegisterAccountUC(
+        IAccountWriteRepository writeRepo,
+        IUnitOfWork unitOfWork,
+        IMapper mapper
+    ) : IRegisterAccountUC
     {
-        public class RegisterAccountUC (
-            IAccountReadRepository readRepo,
-            IAccountWriteRepository writeRepo,
-            IUnitOfWork unitOfWork,
-            IMapper mapper
-        ) : IRegisterAccountUC
+        public async Task<RegisterAccountResponse> RegisterAccount(RegisterAccountRequest request)
+        {
+            await ValidateAsync(request);
+
+            var account = mapper.Map<Domain.Entities.Account>(request);
+
+            await writeRepo.CreateAsync(account);
+
+            await unitOfWork.CommitAsync();
+
+            return new RegisterAccountResponse(request.UserId, account.Name!);
+        }
+
+
+        private async Task ValidateAsync(RegisterAccountRequest registerAccountRequest)
         {
 
-            public async Task<RegisterAccountResponse> RegisterAccount(RegisterAccountRequest request)
-            {
-                await ValidateAsync(request);
-
-                var account = mapper.Map<Domain.Entities.Account>(request);
-
-                await writeRepo.CreateAsync(account);
-
-                await unitOfWork.CommitAsync();
-
-                return new RegisterAccountResponse(request.UserId, account.Name);  
-            }
+            var result = await new RegisterAccountValidator().ValidateAsync(registerAccountRequest);
 
 
-            private async Task ValidateAsync(RegisterAccountRequest registerAccountRequest) {
-                
-                var result = await new RegisterAccountValidator().ValidateAsync(registerAccountRequest);
-
-
-                if (result.IsValid)
+            if (result.IsValid)
                 return;
-                
-                var errorMessages = (from errors in result.Errors select errors.ErrorMessage).ToList();
 
-            }
+            var errorMessages = (from errors in result.Errors select errors.ErrorMessage).ToList();
         }
     }
+}

@@ -1,7 +1,3 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using AutoMapper;
 using ShoKanri.Domain.Contracts.Data.Repositories.Account;
 using ShoKanri.Domain.Contracts.Data.Services;
@@ -11,7 +7,6 @@ using ShoKanri.Http.Responses.Account;
 namespace ShoKanri.Application.UseCases.Account.Delete
 {
     public class DeleteAccountUC(
-        IAccountReadRepository readRepo,
         IAccountWriteRepository writeRepo,
         IUnitOfWork unitOfWork,
         IMapper mapper
@@ -26,7 +21,7 @@ namespace ShoKanri.Application.UseCases.Account.Delete
             await writeRepo.DeleteAsync(request.Id);
             await unitOfWork.CommitAsync();
 
-            return new DeleteAccountResponse(account.Id, account.Name);
+            return new DeleteAccountResponse(account.Id, account.Name!);
         }
 
         private async Task ValidateAsync(DeleteAccountRequest deleteAccountRequest) {

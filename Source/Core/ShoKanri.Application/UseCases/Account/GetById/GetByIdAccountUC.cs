@@ -1,7 +1,5 @@
 using AutoMapper;
-using ShoKanri.Application.UseCases.Account.Register;
 using ShoKanri.Domain.Contracts.Data.Repositories.Account;
-using ShoKanri.Domain.Contracts.Data.Services;
 using ShoKanri.Http.Requests.Account;
 using ShoKanri.Http.Responses.Account;
 
