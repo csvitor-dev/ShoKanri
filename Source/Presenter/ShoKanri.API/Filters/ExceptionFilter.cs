@@ -1,6 +1,5 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Filters;
-using Npgsql.PostgresTypes;
 using ShoKanri.Exception.Base;
 using ShoKanri.Http;
 
