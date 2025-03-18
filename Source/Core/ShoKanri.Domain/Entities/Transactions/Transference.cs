@@ -2,7 +2,7 @@ namespace ShoKanri.Domain.Entities.Transactions;
 
 public sealed class Transference : Transaction
 {
-    public readonly Account? Destination;
+    public Account? Destination { get; init; }
 
     protected override void Transact(Account account)
     {

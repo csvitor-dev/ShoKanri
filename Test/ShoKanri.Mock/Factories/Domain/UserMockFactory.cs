@@ -10,7 +10,13 @@ public abstract class UserMockFactory : MockFactory
         var name = Faker.Name.FirstName();
         var email = Faker.Internet.Email(firstName: name);
         var password = Faker.Internet.Password();
-        
-        return new User(id, name, email, password);
+
+        return new User
+        {
+            Id = id,
+            Name = name,
+            Email = email,
+            Password = password
+        };
     }
 }
