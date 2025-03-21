@@ -5,6 +5,6 @@ namespace ShoKanri.Application.UseCases.Account.GetById
 {
     public interface IGetByIdAccountUC
     {
-        public Task<GetByIdAccountResponse> GetByIdAccount(GetByIdAccountRequest request);
+        public Task<GetAccountByIdResponse> GetByIdAccount(int Id, int UserId);
     }
 }

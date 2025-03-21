@@ -1,2 +1,4 @@
+using System.Net.Http.Headers;
+
 namespace ShoKanri.Http.Requests.Transaction.Transference;
-    public record UpdateTransferenceRequest(int Id, int AccountId);
+    public record UpdateTransferenceRequest(decimal Amount, string Description);

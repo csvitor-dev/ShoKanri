@@ -7,9 +7,8 @@ namespace ShoKanri.Application.UseCases.Transactions.Transference.Update
     {
         public UpdateTransferenceValidator() {
 
-            RuleFor((e) => e.Id).NotEmpty().NotNull();
-
-            RuleFor((e) => e.AccountId).NotEmpty().NotNull();
+            RuleFor((e) => e.Amount).NotEmpty().GreaterThan(0);
+            RuleFor((e) => e.Description).NotEmpty();
         }   
     }
 }

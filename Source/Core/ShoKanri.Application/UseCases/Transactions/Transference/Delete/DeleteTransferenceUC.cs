@@ -14,23 +14,15 @@ namespace ShoKanri.Application.UseCases.Transactions.Transference.Delete
 
     ) : IDeleteTransferenceUC
     {
-        public async Task<TransactionResponse> DeleteTransference(DeleteTransferenceRequest request)
+        public async Task<TransactionResponse> DeleteTransference(int Id, int AccountId)
         {
-            await ValidateAsync(request);
 
-            await writeRepo.DeleteAsync(request.Id);
+            await writeRepo.DeleteAsync(Id);
             await unitOfWork.CommitAsync();
 
-            var expense = await readRepo.FindByIdAsync(request.Id, request.AccountId);
+            var expense = await readRepo.FindByIdAsync(Id, AccountId);
             var response = mapper.Map<TransactionResponse>(expense);
             return response;
-        }
-
-         private static async Task ValidateAsync(DeleteTransferenceRequest deleteTransferenceRequest ) {
-
-            var result = await new DeleteTransferenceValidator().ValidateAsync(deleteTransferenceRequest);
-
-            if (result.IsValid) return;
         }
     }
 }
