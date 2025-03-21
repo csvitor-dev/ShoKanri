@@ -3,30 +3,21 @@ using ShoKanri.Domain.Contracts.Data.Services;
 using ShoKanri.Http.Requests.User;
 using ShoKanri.Http.Responses.User;
 
-namespace ShoKanri.Application.UseCases.User.Delete
+namespace ShoKanri.Application.UseCases.User.Delete;
+
+public class DeleteUserUC
+(
+    IUserWriteRepository writeRepo,
+    IUnitOfWork unitOfWork
+) : UseCase<DeleteUserRequest>(new DeleteUserValidator()), IDeleteUserUC
 {
-    public class DeleteUserUC(
-        IUserWriteRepository writeRepo,
-        IUnitOfWork unitOfWork
-    ) : IDeleteUserUC
+    public async Task<DeleteUserResponse> DeleteUser(DeleteUserRequest request)
     {
-        public async Task<DeleteUserResponse> DeleteUser(DeleteUserRequest request)
-        {
-            await ValidateAsync(request);
+        await ValidateAsync(request);
 
-            await writeRepo.DeleteAsync(request.Id);
-            await unitOfWork.CommitAsync();
+        await writeRepo.DeleteAsync(request.Id);
+        await unitOfWork.CommitAsync();
 
-            return new DeleteUserResponse(request.Id);
-        }
-
-
-        private static async Task ValidateAsync(DeleteUserRequest deleteUserRequest)
-        {
-
-            var result = await new DeleteUserValidator().ValidateAsync(deleteUserRequest);
-
-            if (result.IsValid) return;
-        }
+        return new DeleteUserResponse(request.Id);
     }
 }
