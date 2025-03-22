@@ -19,7 +19,7 @@ public class TransferencesTable : Migration
               .OnDelete(Rule.Cascade);
 
         Create.ForeignKey("FK_Transferences_Accounts_Destination")
-              .FromTable("Transferences").ForeignColumn("Id")
+              .FromTable("Transferences").ForeignColumn("DestinationId")
               .ToTable("Accounts").PrimaryColumn("Id");
     }
 
