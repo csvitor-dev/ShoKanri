@@ -10,31 +10,21 @@ namespace ShoKanri.Application.UseCases.Transactions.Expense.Delete
         ITransactionWriteRepository writeRepo,
         ITransactionReadRepository readRepo,
         IUnitOfWork unitOfWork,
-        Mapper mapper
+        IMapper mapper
 
     ) : IDeleteExpenseUC
     {
-        public async Task<TransactionResponse> DeleteExpense(DeleteTransactionRequest request)
+        public async Task<TransactionResponse> DeleteExpense(int Id, int AccountId)
         {
-            await ValidateAsync(request);
 
-            await writeRepo.DeleteAsync(request.Id);
+            await writeRepo.DeleteAsync(Id);
             await unitOfWork.CommitAsync();
 
-            var expense = await readRepo.FindByIdAsync(request.Id, request.AccountId);
+            var expense = await readRepo.FindByIdAsync(Id, AccountId);
             var response = mapper.Map<TransactionResponse>(expense);
             return response;
-
-
-
         }
 
-        private static async Task ValidateAsync(DeleteTransactionRequest deleteTransactionRequest ) {
-
-            var result = await new DeleteExpenseValidator().ValidateAsync(deleteTransactionRequest);
-
-            if (result.IsValid) return;
-        }
 
     }
 }

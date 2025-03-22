@@ -9,7 +9,7 @@ namespace ShoKanri.Application.UseCases.Transactions.Income.Update
     public class UpdateIncomeUC(
         ITransactionWriteRepository writeRepo,
         IUnitOfWork unitOfWork,
-        Mapper mapper
+        IMapper mapper
     ) : IUpdateIncomeUC
     {
         public async Task<TransactionResponse> UpdateExpense(UpdateTransactionRequest request)

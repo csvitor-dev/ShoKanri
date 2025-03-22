@@ -4,7 +4,7 @@ using ShoKanri.Http.Responses.Transaction;
 namespace ShoKanri.Application.UseCases.Transactions.Transference.Delete{
     public interface IDeleteTransferenceUC
     {
-        public Task<TransactionResponse> DeleteTransference(DeleteTransferenceRequest request);
+        public Task<TransactionResponse> DeleteTransference(int Id, int AccountId);
 
     }
 }

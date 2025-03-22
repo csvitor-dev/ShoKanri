@@ -5,7 +5,7 @@ namespace ShoKanri.Application.UseCases.Account.GetAll
 {
     public interface IGetAllAccountsUC
     {
-        public Task<GetAllAccountsResponse> GetAllAccounts(GetAllAccountsRequest request);
+        public Task<IList<GetAllAccountsResponse>> GetAllAccounts(int UserId);
 
     }
 }
