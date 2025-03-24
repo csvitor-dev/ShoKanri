@@ -1,35 +1,32 @@
 using AutoMapper;
 using ShoKanri.Domain.Contracts.Data.Repositories.Transaction;
-using ShoKanri.Http.Requests.Transaction;
+using ShoKanri.Exception.Project;
 using ShoKanri.Http.Responses.Transaction;
 
 namespace ShoKanri.Application.UseCases.Transactions.Expense.GetAll
 {
     public class GetAllExpensesUC(
         ITransactionReadRepository readRepo,
-        Mapper mapper
+        IMapper mapper
 
     ) : IGetAllExpensesUC
     {
-        public async Task<TransactionResponse> GetAllExpense(GetAllTransactionRequest request)
+        public async Task<IList<TransactionResponse>> GetAllExpense(int accountId)
         {
-            await ValidateAsync(request);
 
-            var expenses = await readRepo.FindAllAsync(request.AccountId);
-            
-            if (expenses == null || !expenses.Any()) throw new System.Exception("sem expenses");
+            var expenses = await readRepo.FindAllAsync(accountId);
 
-            var response = mapper.Map<TransactionResponse>(expenses);
+            Validate(expenses);
+
+            var response = mapper.Map<IList<TransactionResponse>>(expenses);
 
             return response;
-
         }
 
-        private static async Task ValidateAsync(GetAllTransactionRequest getAllTransactionRequest ) {
-
-            var result = await new GetAllExpensesValidator().ValidateAsync(getAllTransactionRequest);
-
-            if (result.IsValid) return;
+        private static void Validate(IList<Domain.Entities.Transactions.Transaction>? expenses)
+        {
+            if (expenses?.Any() is false)
+                throw new ErrorOnValidationException("nenhuma despesa foi encontrada");
         }
     }
 }

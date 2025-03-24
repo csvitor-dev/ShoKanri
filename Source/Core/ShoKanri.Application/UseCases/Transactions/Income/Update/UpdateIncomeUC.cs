@@ -6,33 +6,25 @@ using ShoKanri.Http.Responses.Transaction;
 
 namespace ShoKanri.Application.UseCases.Transactions.Income.Update
 {
-    public class UpdateIncomeUC(
+    public class UpdateIncomeUC
+    (
         ITransactionWriteRepository writeRepo,
         IUnitOfWork unitOfWork,
-        Mapper mapper
-    ) : IUpdateIncomeUC
+        IMapper mapper
+    ) : UseCase<UpdateTransactionRequest>(new UpdateIncomeValidator()), IUpdateIncomeUC
     {
         public async Task<TransactionResponse> UpdateExpense(UpdateTransactionRequest request)
         {
             await ValidateAsync(request);
 
-             var expense = mapper.Map<Domain.Entities.Transactions.Expense>(request);
+            var expense = mapper.Map<Domain.Entities.Transactions.Expense>(request);
 
-             await writeRepo.UpdateAsync(expense);
-             await unitOfWork.CommitAsync();
+            await writeRepo.UpdateAsync(expense);
+            await unitOfWork.CommitAsync();
 
-             var response =  mapper.Map<TransactionResponse>(expense);
+            var response = mapper.Map<TransactionResponse>(expense);
 
-             return response;
-        }
-
-
-
-         private static async Task ValidateAsync(UpdateTransactionRequest updateTransactionRequest ) {
-
-            var result = await new UpdateIncomeValidator().ValidateAsync(updateTransactionRequest);
-
-            if (result.IsValid) return;
+            return response;
         }
     }
 }

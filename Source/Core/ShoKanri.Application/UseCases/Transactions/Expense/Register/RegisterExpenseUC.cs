@@ -1,5 +1,4 @@
 using AutoMapper;
-using ShoKanri.Domain.Contracts.Data.Repositories;
 using ShoKanri.Domain.Contracts.Data.Repositories.Transaction;
 using ShoKanri.Domain.Contracts.Data.Services;
     using ShoKanri.Http.Requests.Transaction;
@@ -11,7 +10,7 @@ using ShoKanri.Domain.Contracts.Data.Services;
             ITransactionWriteRepository writeRepo,
             IUnitOfWork unitOfWork,
             IMapper mapper
-        ) : IRegisterExpenseUC
+        ) : UseCase<RegisterTransactionRequest>(new RegisterExpenseValidator()), IRegisterExpenseUC
         {
             public  async Task<TransactionResponse> RegisterExpense(RegisterTransactionRequest request)
             {
@@ -20,19 +19,9 @@ using ShoKanri.Domain.Contracts.Data.Services;
                 var expense = mapper.Map<Domain.Entities.Transactions.Expense>(request);
 
                 await writeRepo.CreateAsync(expense);
-
                 await unitOfWork.CommitAsync();
 
                 return new TransactionResponse(expense.Id, expense.Amount, request.Type, DateTime.Now);
             }
-
-            private static async Task ValidateAsync(RegisterTransactionRequest createExpenseRequest) {
-                    
-                    var result = await new RegisterExpenseValidator().ValidateAsync(createExpenseRequest);
-
-                    if (result.IsValid)
-                    return;
-                
-                }
         }
     }

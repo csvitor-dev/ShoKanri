@@ -5,7 +5,7 @@ namespace ShoKanri.Application.UseCases.Transactions.Income.Delete
 {
     public interface IDeleteIncomeUC
     {
-        public Task<TransactionResponse> DeleteIncome(DeleteTransactionRequest request);
+        public Task<TransactionResponse> DeleteIncome(int id, int accountId);
 
     }
 }

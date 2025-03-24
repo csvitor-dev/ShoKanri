@@ -1,39 +1,30 @@
+using System.ComponentModel.DataAnnotations;
 using AutoMapper;
 using ShoKanri.Domain.Contracts.Data.Repositories.Account;
-using ShoKanri.Http.Requests.Account;
+using ShoKanri.Exception.Project;
 using ShoKanri.Http.Responses.Account;
 
-namespace ShoKanri.Application.UseCases.Account.GetAll
+namespace ShoKanri.Application.UseCases.Account.GetAll;
+
+public class GetAllAccountsUC
+(
+    IAccountReadRepository readRepo,
+    IMapper mapper
+) : IGetAllAccountsUC
 {
-    public class GetAllAccountsUC(
-        IAccountReadRepository readRepo,
-        Mapper mapper
-
-    ) : IGetAllAccountsUC
+    public async Task<IList<GetAllAccountsResponse>> GetAllAccounts(int userId)
     {
-        public async Task<GetAllAccountsResponse> GetAllAccounts(GetAllAccountsRequest request)
-        {
-            await ValidateAsync(request);
+        var accounts = await readRepo.FindAllAsync(userId);
 
-            var accounts = await readRepo.FindAllAsync(request.UserId);
+        Validate(accounts);
 
-            if (accounts == null || !accounts.Any()) throw new System.Exception("sem contas");
+        var response = mapper.Map<List<GetAllAccountsResponse>>(accounts);
+        return response;
+    }
 
-            var response = mapper.Map<GetAllAccountsResponse>(accounts);
-
-            return response;
-        }
-
-
-        private async Task ValidateAsync(GetAllAccountsRequest getAllAccountRequest) {
-
-            var result =  await new GetAllAccountsValidator().ValidateAsync(getAllAccountRequest);
-
-            if (result.IsValid) return;
-
-            var errorMessages = (from errors in result.Errors select errors.ErrorMessage).ToList();
-
-        }
-
+    private static void Validate(IList<Domain.Entities.Account>? accounts)
+    {
+        if (accounts?.Any() is false)
+            throw new ErrorOnValidationException("nenhuma conta foi encontrada");
     }
 }

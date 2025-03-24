@@ -1,5 +1,6 @@
 using AutoMapper;
 using ShoKanri.Domain.Contracts.Data.Repositories.Transaction;
+using ShoKanri.Exception.Project;
 using ShoKanri.Http.Requests.Transaction;
 using ShoKanri.Http.Responses.Transaction;
 
@@ -7,27 +8,23 @@ namespace ShoKanri.Application.UseCases.Transactions.Income.GetAll
 {
     public class GetAllIncomesUC(
         ITransactionReadRepository readRepo,
-        Mapper mapper
-    ): IGetAllIncomesUC
+        IMapper mapper
+    ) : IGetAllIncomesUC
     {
-        public async Task<TransactionResponse> GetAllExpense(GetAllTransactionRequest request)
+        public async Task<IList<TransactionResponse>> GetAllExpense(int accountId)
         {
-            await ValidateAsync(request);
 
-            var expenses = await readRepo.FindAllAsync(request.AccountId);
-            
-            if (expenses == null || !expenses.Any()) throw new System.Exception("sem expenses");
+            var incomes = await readRepo.FindAllAsync(accountId);
 
-            var response = mapper.Map<TransactionResponse>(expenses);
+            Validate(incomes);
 
-            return response;        }
-
-
-        private static async Task ValidateAsync(GetAllTransactionRequest getAllTransactionRequest ) {
-
-            var result = await new GetAllIncomesValidator().ValidateAsync(getAllTransactionRequest);
-
-            if (result.IsValid) return;
+            var response = mapper.Map<IList<TransactionResponse>>(incomes);
+            return response;
+        }
+        private static void Validate(IList<Domain.Entities.Transactions.Transaction>? incomes)
+        {
+            if (incomes?.Any() is false)
+                throw new ErrorOnValidationException("nenhuma receita foi encontrada");
         }
     }
 }

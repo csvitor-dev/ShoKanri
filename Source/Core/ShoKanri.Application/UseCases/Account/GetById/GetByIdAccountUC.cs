@@ -1,38 +1,24 @@
 using AutoMapper;
 using ShoKanri.Domain.Contracts.Data.Repositories.Account;
-using ShoKanri.Http.Requests.Account;
+using ShoKanri.Exception.Project;
 using ShoKanri.Http.Responses.Account;
 
-    namespace ShoKanri.Application.UseCases.Account.GetById
+namespace ShoKanri.Application.UseCases.Account.GetById;
+
+public class GetByIdAccountUC
+(
+    IAccountReadRepository readRepo,
+    IMapper mapper
+) : IGetByIdAccountUC
+{
+    public async Task<GetAccountByIdResponse> GetByIdAccount(int id, int userId)
     {
-        public class GetByIdAccountUC (
-            IAccountReadRepository readRepo,
-            IMapper mapper
-        ) : IGetByIdAccountUC
-        {
+        var account = await readRepo.FindByIdAsync(id, userId) ??
+            throw new ErrorOnValidationException("conta não encontrada");
 
-            public async Task<GetByIdAccountResponse> GetByIdAccount(GetByIdAccountRequest request)
-            {
-                await ValidateAsync(request);
+        var response = mapper.Map<GetAccountByIdResponse>(account);
 
-                var account = await readRepo.FindByIdAsync(request.Id, request.UserId);
-
-                var response = mapper.Map<GetByIdAccountResponse>(account);
-
-                return response;  
-            }
-
-
-            private async Task ValidateAsync(GetByIdAccountRequest GetByIdAccountRequest) {
-                
-                var result = await new GetByIdAccountValidator().ValidateAsync(GetByIdAccountRequest);
-
-
-                if (result.IsValid)
-                return;
-                
-                var errorMessages = (from errors in result.Errors select errors.ErrorMessage).ToList();
-
-            }
-        }
+        return response;
     }
+}
+

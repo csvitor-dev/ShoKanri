@@ -1,40 +1,26 @@
-using AutoMapper;
 using ShoKanri.Domain.Contracts.Data.Repositories.Account;
 using ShoKanri.Domain.Contracts.Data.Services;
-using ShoKanri.Http.Requests.Account;
+using ShoKanri.Exception.Project;
 using ShoKanri.Http.Responses.Account;
 
-namespace ShoKanri.Application.UseCases.Account.Delete
+namespace ShoKanri.Application.UseCases.Account.Delete;
+
+public class DeleteAccountUC
+(
+    IAccountWriteRepository writeRepo,
+    IAccountReadRepository readRepo,
+    IUnitOfWork unitOfWork
+) : IDeleteAccountUC
 {
-    public class DeleteAccountUC(
-        IAccountWriteRepository writeRepo,
-        IUnitOfWork unitOfWork,
-        IMapper mapper
-    ) : IDeleteAccountUC
+    public async Task<DeleteAccountResponse> DeleteAccount(int id, int userId)
     {
-        public async Task<DeleteAccountResponse> DeleteAccount(DeleteAccountRequest request)
-        {
-            await ValidateAsync(request);
 
-            var account = mapper.Map<Domain.Entities.Account>(request);
+        var account = await readRepo.FindByIdAsync(id, userId) ??
+            throw new ErrorOnValidationException("conta não encontrada");
 
-            await writeRepo.DeleteAsync(request.Id);
-            await unitOfWork.CommitAsync();
+        await writeRepo.DeleteAsync(id);
+        await unitOfWork.CommitAsync();
 
-            return new DeleteAccountResponse(account.Id, account.Name!);
-        }
-
-        private async Task ValidateAsync(DeleteAccountRequest deleteAccountRequest) {
-
-            var result = await new DeleteAccountValidator().ValidateAsync(deleteAccountRequest);
-
-
-            if (result.IsValid)
-                return;
-                
-                var errorMessages = (from errors in result.Errors select errors.ErrorMessage).ToList();
-
-        }
-
+        return new DeleteAccountResponse(account.Id, account.Name!);
     }
 }
