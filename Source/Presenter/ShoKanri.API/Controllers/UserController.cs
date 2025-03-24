@@ -17,7 +17,8 @@ public sealed class UserController
 {
     [HttpPost("register")]
     [ProducesResponseType(typeof(RegisterUserResponse), StatusCodes.Status201Created)]
-    public async Task<IActionResult> Register(
+    public async Task<IActionResult> Register
+    (
         [FromServices] IRegisterUserUC uc,
         [FromBody] RegisterUserRequest request
     )
@@ -29,7 +30,8 @@ public sealed class UserController
 
     [HttpPost("login")]
     [ProducesResponseType(typeof(TokenResponse), StatusCodes.Status200OK)]
-    public async Task<IActionResult> Login(
+    public async Task<IActionResult> Login
+    (
         [FromServices] ILoginUserUC uc,
         [FromBody] LoginUserRequest request
     )
@@ -44,23 +46,24 @@ public sealed class UserController
     [Authorize]
     [HttpDelete("{id:int}")]
     [ProducesResponseType(typeof(DeleteUserResponse), StatusCodes.Status200OK)]
-    public async Task<IActionResult> Delete(
-        int id,
+    public async Task<IActionResult> Delete
+    (
         [FromServices] IDeleteUserUC uc,
-        [FromBody] DeleteUserRequest request)
+        int id
+    )
     {
-        var response = await uc.DeleteUser(id, request);
-
+        var response = await uc.DeleteUser(id);
         return AppOk(response);
     }
 
     [Authorize]
     [HttpPut("{id:int}")]
     [ProducesResponseType(typeof(UpdateUserResponse), StatusCodes.Status200OK)]
-    public async Task<IActionResult> Update(
-        int id,
+    public async Task<IActionResult> Update
+    (
         [FromServices] IUpdateUserUC uc,
-        [FromBody] UpdateUserRequest request
+        [FromBody] UpdateUserRequest request,
+        int id
     )
     {
         var response = await uc.UpdateUser(id, request);

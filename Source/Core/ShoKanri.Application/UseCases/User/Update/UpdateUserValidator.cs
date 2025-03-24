@@ -4,17 +4,15 @@ using ShoKanri.Http.Requests.User;
 
 namespace ShoKanri.Application.UseCases.User.Update
 {
-    public class UpdateUserValidator: AbstractValidator<UpdateUserRequest>
+    public class UpdateUserValidator : AbstractValidator<UpdateUserRequest>
     {
-        public UpdateUserValidator() {
+        public UpdateUserValidator()
+        {
+            RuleFor((u) => u.Name).NotEmpty().Length(4, 50)
+                .When((u) => u.Name is not null);
 
-            RuleFor((u) => u.Id).NotEmpty().NotNull();
-
-            RuleFor((u) => u.Name).NotEmpty().NotNull();
-
-            RuleFor((u) => u.Email).NotNull().NotEmpty().EmailAddress();
-
-
+            RuleFor((u) => u.Email).NotEmpty().EmailAddress()
+                .When((u) => u.Email is not null);
         }
     }
 }

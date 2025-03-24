@@ -5,7 +5,6 @@ namespace ShoKanri.Application.UseCases.User.Update
 {
     public interface IUpdateUserUC
     {
-        public Task<UpdateUserResponse> UpdateUser(UpdateUserRequest request);
-
+        public Task<UpdateUserResponse> UpdateUser(int id, UpdateUserRequest request);
     }
 }
