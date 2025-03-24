@@ -1,8 +1,6 @@
+using ShoKanri.Domain.Contracts.Data.Repositories.Base;
+
 namespace ShoKanri.Domain.Contracts.Data.Repositories.Transaction;
 
 public interface ITransactionWriteRepository
-{
-    Task CreateAsync(Entities.Transactions.Transaction entity);
-    Task UpdateAsync(Entities.Transactions.Transaction entity);
-    Task DeleteAsync(int id);
-}
+    : IWriteOnlyRepository<Entities.Transactions.Transaction>;
