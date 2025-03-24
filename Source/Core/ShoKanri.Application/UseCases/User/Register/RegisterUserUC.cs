@@ -36,7 +36,7 @@ public class RegisterUserUC
     {
         var emailExists = await readRepo.FindActiveEmailAsync(request.Email);
 
-        return emailExists is false
+        return emailExists is true
             ? "Email already exists on database."
             : string.Empty;
     }
