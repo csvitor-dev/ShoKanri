@@ -1,4 +1,5 @@
 using System;
+using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 using ShoKanri.DAO.Context;
 using ShoKanri.Domain.Contracts.Data.Repositories.Base;
@@ -12,22 +13,19 @@ public class BaseRepository<T>(AppDbContext context) : IWriteOnlyRepository<T> w
     
     public async Task CreateAsync(T entity)
     {
-        _context.Add(entity);
-        await _context.SaveChangesAsync();
+        await _context.AddAsync(entity);
     }
 
     public async Task DeleteAsync(int id)
     {
-        T entity = await _context.Set<T>().FirstOrDefaultAsync(t => t.Id == id) ??
-                   throw new InvalidOperationException("Id for entry inexistent, try another");
+        var entity = await _context.Set<T>().FirstOrDefaultAsync(t => t.Id == id) ??
+                     throw new InvalidOperationException("Id for entry nonexistent, try another");
 
         _context.Remove(entity);
-        await _context.SaveChangesAsync();
     }
 
     public async Task UpdateAsync(T entity)
     {
-        _context.Update(entity);
-        await _context.SaveChangesAsync();
+        await Task.FromResult(_context.Update(entity));
     }
 }

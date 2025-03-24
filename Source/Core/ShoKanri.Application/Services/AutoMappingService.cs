@@ -25,7 +25,9 @@ public class AutoMappingService : Profile
             .ForMember((dest) => dest.Password, (opt) => opt.Ignore());
         CreateMap<User, LoginUserDto>();
 
-        CreateMap<UpdateUserRequest, User>();
+        CreateMap<UpdateUserRequest, User>()
+            .ForAllMembers((opt) => 
+                opt.Condition((src, dest, srcMember) => srcMember is not null));
         CreateMap<User, UpdateUserResponse>();
 
         CreateMap<User, DeleteUserResponse>();
@@ -61,7 +63,7 @@ public class AutoMappingService : Profile
 
         CreateMap<Expense, TransactionResponse>();
 
-         CreateMap<UpdateTransactionRequest, Expense>();
+        CreateMap<UpdateTransactionRequest, Expense>();
         CreateMap<Expense, TransactionResponse>();
 
         CreateMap<Expense, TransactionResponse>();

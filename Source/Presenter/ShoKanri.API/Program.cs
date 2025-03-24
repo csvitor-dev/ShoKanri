@@ -31,10 +31,7 @@ builder.Services.AddRouting(options =>
 
 // Apply exception handling with ExceptionFilters
 // see https://learn.microsoft.com/en-us/aspnet/web-api/overview/error-handling/exception-handling
-builder.Services.AddMvc(options =>
-{
-    options.Filters.Add(new ExceptionFilter());
-});
+builder.Services.AddMvc(options => { options.Filters.Add(new ExceptionFilter()); });
 
 var app = builder.Build();
 
@@ -47,14 +44,12 @@ app.UseSwaggerUI();
 
 // Expose sample endpoint.
 app.MapGet("/", () =>
-    {
-        return Results.Ok(new
+        Results.Ok(new
         {
             Message = "Welcome to Shō-Kanri API, the sample API based on the Kanri project",
             GitHubUrl = "https://github.com/csvitor-dev/ShoKanri",
             ApiDocUrl = "Go to the '/swagger' route to access the API documentation."
-        });
-    })
+        }))
     .WithName("Sample Endpoint")
     .WithOpenApi();
 
