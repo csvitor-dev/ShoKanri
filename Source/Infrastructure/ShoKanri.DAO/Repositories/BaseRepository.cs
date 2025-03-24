@@ -18,8 +18,8 @@ public class BaseRepository<T>(AppDbContext context) : IWriteOnlyRepository<T> w
 
     public async Task DeleteAsync(int id)
     {
-        T entity = await _context.Set<T>().FirstOrDefaultAsync(t => t.Id == id) ??
-                   throw new InvalidOperationException("Id for entry inexistent, try another");
+        var entity = await _context.Set<T>().FirstOrDefaultAsync(t => t.Id == id) ??
+                     throw new InvalidOperationException("Id for entry nonexistent, try another");
 
         _context.Remove(entity);
     }
