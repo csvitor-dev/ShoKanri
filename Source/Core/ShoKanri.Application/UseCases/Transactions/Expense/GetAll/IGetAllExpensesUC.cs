@@ -5,7 +5,6 @@ namespace ShoKanri.Application.UseCases.Transactions.Expense.GetAll
 {
     public interface IGetAllExpensesUC
     {
-        public Task<IList<TransactionResponse>> GetAllExpense(int AccountId);
-
+        public Task<IList<TransactionResponse>> GetAllExpense(int accountId);
     }
 }

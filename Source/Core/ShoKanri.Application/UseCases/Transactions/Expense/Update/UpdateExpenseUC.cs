@@ -11,29 +11,20 @@ namespace ShoKanri.Application.UseCases.Transactions.Expense.Update
         IUnitOfWork unitOfWork,
         IMapper mapper
 
-    ) : IUpdateExpenseUC
+    ) : UseCase<UpdateTransactionRequest>(new UpdateExpenseValidator()), IUpdateExpenseUC
     {
         public async Task<TransactionResponse> UpdateExpense(UpdateTransactionRequest request)
         {
-             await ValidateAsync(request);
+            await ValidateAsync(request);
 
-             var expense = mapper.Map<Domain.Entities.Transactions.Expense>(request);
+            var expense = mapper.Map<Domain.Entities.Transactions.Expense>(request);
 
-             await writeRepo.UpdateAsync(expense);
-             await unitOfWork.CommitAsync();
+            await writeRepo.UpdateAsync(expense);
+            await unitOfWork.CommitAsync();
 
-             var response =  mapper.Map<TransactionResponse>(expense);
+            var response = mapper.Map<TransactionResponse>(expense);
 
-             return response;
-
-        }
-
-
-        private static async Task ValidateAsync(UpdateTransactionRequest updateTransactionRequest ) {
-
-            var result = await new UpdateExpenseValidator().ValidateAsync(updateTransactionRequest);
-
-            if (result.IsValid) return;
+            return response;
         }
     }
 }

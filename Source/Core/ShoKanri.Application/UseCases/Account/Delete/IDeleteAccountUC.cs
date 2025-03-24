@@ -5,6 +5,6 @@ namespace ShoKanri.Application.UseCases.Account.Delete
 {
     public interface IDeleteAccountUC
     {
-        public Task<DeleteAccountResponse> DeleteAccount(int Id, int UserId);
+        public Task<DeleteAccountResponse> DeleteAccount(int id, int userId);
     }
 }

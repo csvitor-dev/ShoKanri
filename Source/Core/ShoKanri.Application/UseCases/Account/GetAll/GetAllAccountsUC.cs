@@ -25,6 +25,6 @@ public class GetAllAccountsUC
     private static void Validate(IList<Domain.Entities.Account>? accounts)
     {
         if (accounts?.Any() is false)
-            throw new ErrorOnValidationException(["sem contas"]);
+            throw new ErrorOnValidationException("nenhuma conta foi encontrada");
     }
 }

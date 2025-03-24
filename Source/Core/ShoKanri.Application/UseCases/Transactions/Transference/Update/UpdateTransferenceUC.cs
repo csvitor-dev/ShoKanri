@@ -10,28 +10,21 @@ namespace ShoKanri.Application.UseCases.Transactions.Transference.Update
         ITransactionWriteRepository writeRepo,
         IUnitOfWork unitOfWork,
         IMapper mapper
-    ) : IUpdateTransferenceUC
+    ) : UseCase<UpdateTransferenceRequest>(new UpdateTransferenceValidator()), IUpdateTransferenceUC
     {
         public async Task<TransactionResponse> UpdateTransference(UpdateTransferenceRequest request)
         {
             await ValidateAsync(request);
 
-             var transferece = mapper.Map<Domain.Entities.Transactions.Transference>(request);
+            var transferece = mapper.Map<Domain.Entities.Transactions.Transference>(request);
 
-             await writeRepo.UpdateAsync(transferece);
-             await unitOfWork.CommitAsync();
+            await writeRepo.UpdateAsync(transferece);
+            await unitOfWork.CommitAsync();
 
-             var response =  mapper.Map<TransactionResponse>(transferece);
+            var response = mapper.Map<TransactionResponse>(transferece);
 
-             return response;
+            return response;
 
-        }
-
-         private static async Task ValidateAsync(UpdateTransferenceRequest updateTransferenceRequest ) {
-
-            var result = await new UpdateTransferenceValidator().ValidateAsync(updateTransferenceRequest);
-
-            if (result.IsValid) return;
         }
     }
 }

@@ -6,22 +6,23 @@ using ShoKanri.Http.Responses.Transaction;
 
 namespace ShoKanri.Application.UseCases.Transactions.Transference.Delete
 {
-    public class DeleteTransferenceUC(
+    public class DeleteTransferenceUC
+    (
         ITransactionWriteRepository writeRepo,
         ITransactionReadRepository readRepo,
         IUnitOfWork unitOfWork,
         IMapper mapper
-
     ) : IDeleteTransferenceUC
     {
-        public async Task<TransactionResponse> DeleteTransference(int Id, int AccountId)
+        public async Task<TransactionResponse> DeleteTransference(int id, int accountId)
         {
 
-            await writeRepo.DeleteAsync(Id);
+            await writeRepo.DeleteAsync(id);
             await unitOfWork.CommitAsync();
 
-            var expense = await readRepo.FindByIdAsync(Id, AccountId);
-            var response = mapper.Map<TransactionResponse>(expense);
+            var transference = await readRepo.FindByIdAsync(id, accountId);
+            var response = mapper.Map<TransactionResponse>(transference);
+
             return response;
         }
     }
