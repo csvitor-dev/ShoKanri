@@ -1,28 +1,30 @@
 using System.ComponentModel.DataAnnotations;
 using AutoMapper;
 using ShoKanri.Domain.Contracts.Data.Repositories.Account;
-using ShoKanri.Http.Requests.Account;
+using ShoKanri.Exception.Project;
 using ShoKanri.Http.Responses.Account;
 
-namespace ShoKanri.Application.UseCases.Account.GetAll
+namespace ShoKanri.Application.UseCases.Account.GetAll;
+
+public class GetAllAccountsUC
+(
+    IAccountReadRepository readRepo,
+    IMapper mapper
+) : IGetAllAccountsUC
 {
-    public class GetAllAccountsUC(
-        IAccountReadRepository readRepo,
-        IMapper mapper
-
-    ) : IGetAllAccountsUC
+    public async Task<IList<GetAllAccountsResponse>> GetAllAccounts(int userId)
     {
-        public async Task<IList<GetAllAccountsResponse>> GetAllAccounts(int UserId)
-        {
+        var accounts = await readRepo.FindAllAsync(userId);
 
-            var accounts = await readRepo.FindAllAsync(UserId);
+        Validate(accounts);
 
-            if (accounts == null || !accounts.Any()) throw new System.Exception("sem contas");
+        var response = mapper.Map<List<GetAllAccountsResponse>>(accounts);
+        return response;
+    }
 
-            var response = mapper.Map<IList<GetAllAccountsResponse>>(accounts);
-
-            return response;
-        }
-
+    private static void Validate(IList<Domain.Entities.Account>? accounts)
+    {
+        if (accounts?.Any() is false)
+            throw new ErrorOnValidationException("nenhuma conta foi encontrada");
     }
 }

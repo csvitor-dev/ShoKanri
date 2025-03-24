@@ -14,17 +14,15 @@ namespace ShoKanri.Application.UseCases.Transactions.Expense.Delete
 
     ) : IDeleteExpenseUC
     {
-        public async Task<TransactionResponse> DeleteExpense(int Id, int AccountId)
+        public async Task<TransactionResponse> DeleteExpense(int id, int accountId)
         {
-
-            await writeRepo.DeleteAsync(Id);
+            await writeRepo.DeleteAsync(id);
             await unitOfWork.CommitAsync();
 
-            var expense = await readRepo.FindByIdAsync(Id, AccountId);
+            var expense = await readRepo.FindByIdAsync(id, accountId);
             var response = mapper.Map<TransactionResponse>(expense);
+    
             return response;
         }
-
-
     }
 }

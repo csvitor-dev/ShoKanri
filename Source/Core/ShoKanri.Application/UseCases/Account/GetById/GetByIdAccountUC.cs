@@ -1,24 +1,24 @@
 using AutoMapper;
 using ShoKanri.Domain.Contracts.Data.Repositories.Account;
+using ShoKanri.Exception.Project;
 using ShoKanri.Http.Responses.Account;
 
-    namespace ShoKanri.Application.UseCases.Account.GetById
+namespace ShoKanri.Application.UseCases.Account.GetById;
+
+public class GetByIdAccountUC
+(
+    IAccountReadRepository readRepo,
+    IMapper mapper
+) : IGetByIdAccountUC
+{
+    public async Task<GetAccountByIdResponse> GetByIdAccount(int id, int userId)
     {
-        public class GetByIdAccountUC (
-            IAccountReadRepository readRepo,
-            IMapper mapper
-        ) : IGetByIdAccountUC
-        {
+        var account = await readRepo.FindByIdAsync(id, userId) ??
+            throw new ErrorOnValidationException("conta não encontrada");
 
-            public async Task<GetAccountByIdResponse> GetByIdAccount(int Id, int UserId)
-            {
+        var response = mapper.Map<GetAccountByIdResponse>(account);
 
-                var account = await readRepo.FindByIdAsync(Id, UserId) ??
-                    throw new System.Exception("Account not Found!");
-                
-                var response = mapper.Map<GetAccountByIdResponse>(account);
-
-                return response;  
-            }
-        }
+        return response;
     }
+}
+

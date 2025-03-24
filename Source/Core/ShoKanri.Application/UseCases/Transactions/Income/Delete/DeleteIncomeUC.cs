@@ -13,13 +13,13 @@ namespace ShoKanri.Application.UseCases.Transactions.Income.Delete
         IMapper mapper
     ) : IDeleteIncomeUC
     {
-        public async Task<TransactionResponse> DeleteIncome(int Id, int AccountId)
+        public async Task<TransactionResponse> DeleteIncome(int id, int accountId)
         {
 
-            await writeRepo.DeleteAsync(Id);
+            await writeRepo.DeleteAsync(id);
             await unitOfWork.CommitAsync();
 
-            var income = await readRepo.FindByIdAsync(Id, AccountId);
+            var income = await readRepo.FindByIdAsync(id, accountId);
             var response = mapper.Map<TransactionResponse>(income);
             return response;
         }

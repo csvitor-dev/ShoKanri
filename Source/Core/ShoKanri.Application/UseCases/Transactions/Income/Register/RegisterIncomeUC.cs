@@ -6,12 +6,12 @@ using ShoKanri.Http.Responses.Transaction;
 
 namespace ShoKanri.Application.UseCases.Transactions.Income.Register
 {
-    public class RegisterIncomeUC(
+    public class RegisterIncomeUC
+    (
         ITransactionWriteRepository writeRepo,
         IUnitOfWork unitOfWork,
         IMapper mapper
-
-    ) : IRegisterIncomeUC
+    ) : UseCase<RegisterTransactionRequest>(new RegisterIncomeValidator()), IRegisterIncomeUC
     {
         public async Task<TransactionResponse> RegisterIncome(RegisterTransactionRequest request)
         {
@@ -20,19 +20,9 @@ namespace ShoKanri.Application.UseCases.Transactions.Income.Register
             var income = mapper.Map<Domain.Entities.Transactions.Income>(request);
 
             await writeRepo.CreateAsync(income);
-
             await unitOfWork.CommitAsync();
 
             return new TransactionResponse(income.Id, income.Amount, request.Type, DateTime.Now);
         }
-
-
-        private static async Task ValidateAsync(RegisterTransactionRequest createAccountRequest) {
-                
-                var result = await new RegisterIncomeValidator().ValidateAsync(createAccountRequest);
-
-                if (result.IsValid)
-                return;
-            }
     }
 }
