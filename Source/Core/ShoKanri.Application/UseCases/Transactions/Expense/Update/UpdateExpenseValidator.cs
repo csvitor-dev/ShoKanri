@@ -7,9 +7,9 @@ namespace ShoKanri.Application.UseCases.Transactions.Expense.Update
     {
         public UpdateExpenseValidator() {
             
-            RuleFor((e) => e.Id).NotEmpty().NotNull();
+            RuleFor((e) => e.Amount).NotEmpty().GreaterThan(0);
+            RuleFor((e) => e.Description).NotEmpty();
 
-            RuleFor((e) => e.AccountId).NotEmpty().NotNull();
         }
     }
 }

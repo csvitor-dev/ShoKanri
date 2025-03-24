@@ -1,2 +1,2 @@
 namespace ShoKanri.Http.Requests.Transaction.Transference;
-    public record UpdateTransferenceRequest(int Id, int AccountId);
+    public record UpdateTransferenceRequest( int SourceId, int DestinationId, decimal Amount, string Description);

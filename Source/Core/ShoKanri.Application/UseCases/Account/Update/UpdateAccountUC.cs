@@ -1,3 +1,4 @@
+using System.ComponentModel.DataAnnotations;
 using AutoMapper;
 using ShoKanri.Domain.Contracts.Data.Repositories.Account;
 using ShoKanri.Domain.Contracts.Data.Services;
@@ -13,7 +14,7 @@ namespace ShoKanri.Application.UseCases.Account.Update
     ) : IUpdateAccountUC
     {
         public async Task<UpdateAccountResponse> UpdateAccount(UpdateAccountRequest request)
-        {
+        {   
             await ValidateAsync(request);
 
             var account = mapper.Map<Domain.Entities.Account>(request);
@@ -24,7 +25,7 @@ namespace ShoKanri.Application.UseCases.Account.Update
             return new UpdateAccountResponse(account.Id, account.Name!, account.Description);
         }
 
-        private async Task ValidateAsync(UpdateAccountRequest updateAccountRequest)
+        private static async Task ValidateAsync(UpdateAccountRequest updateAccountRequest)
         {
             var result = await new UpdateAccountValidator().ValidateAsync(updateAccountRequest);
 
@@ -33,6 +34,7 @@ namespace ShoKanri.Application.UseCases.Account.Update
                 return;
 
             var errorMessages = (from errors in result.Errors select errors.ErrorMessage).ToList();
+                        throw new ValidationException("Validation failed: " + string.Join(", ", errorMessages));
         }
     }
 }

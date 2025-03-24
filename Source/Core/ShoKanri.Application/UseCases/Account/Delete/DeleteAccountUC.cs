@@ -1,40 +1,27 @@
-using AutoMapper;
 using ShoKanri.Domain.Contracts.Data.Repositories.Account;
 using ShoKanri.Domain.Contracts.Data.Services;
-using ShoKanri.Http.Requests.Account;
 using ShoKanri.Http.Responses.Account;
 
 namespace ShoKanri.Application.UseCases.Account.Delete
 {
     public class DeleteAccountUC(
         IAccountWriteRepository writeRepo,
-        IUnitOfWork unitOfWork,
-        IMapper mapper
+        IAccountReadRepository readRepo,
+        IUnitOfWork unitOfWork
     ) : IDeleteAccountUC
     {
-        public async Task<DeleteAccountResponse> DeleteAccount(DeleteAccountRequest request)
+        public async Task<DeleteAccountResponse> DeleteAccount(int Id, int UserId)
         {
-            await ValidateAsync(request);
 
-            var account = mapper.Map<Domain.Entities.Account>(request);
-
-            await writeRepo.DeleteAsync(request.Id);
+            var account = await readRepo.FindByIdAsync(Id, UserId) ?? 
+                throw new System.Exception("Conta não encontrada");
+            
+            await writeRepo.DeleteAsync(Id);
             await unitOfWork.CommitAsync();
 
             return new DeleteAccountResponse(account.Id, account.Name!);
         }
 
-        private async Task ValidateAsync(DeleteAccountRequest deleteAccountRequest) {
-
-            var result = await new DeleteAccountValidator().ValidateAsync(deleteAccountRequest);
-
-
-            if (result.IsValid)
-                return;
-                
-                var errorMessages = (from errors in result.Errors select errors.ErrorMessage).ToList();
-
-        }
 
     }
 }

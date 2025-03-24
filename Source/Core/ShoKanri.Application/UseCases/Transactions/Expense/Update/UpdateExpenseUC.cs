@@ -9,7 +9,7 @@ namespace ShoKanri.Application.UseCases.Transactions.Expense.Update
     public class UpdateExpenseUC(
         ITransactionWriteRepository writeRepo,
         IUnitOfWork unitOfWork,
-        Mapper mapper
+        IMapper mapper
 
     ) : IUpdateExpenseUC
     {

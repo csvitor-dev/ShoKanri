@@ -1,6 +1,5 @@
 using AutoMapper;
 using ShoKanri.Domain.Contracts.Data.Repositories.Account;
-using ShoKanri.Http.Requests.Account;
 using ShoKanri.Http.Responses.Account;
 
     namespace ShoKanri.Application.UseCases.Account.GetById
@@ -11,28 +10,15 @@ using ShoKanri.Http.Responses.Account;
         ) : IGetByIdAccountUC
         {
 
-            public async Task<GetByIdAccountResponse> GetByIdAccount(GetByIdAccountRequest request)
+            public async Task<GetAccountByIdResponse> GetByIdAccount(int Id, int UserId)
             {
-                await ValidateAsync(request);
 
-                var account = await readRepo.FindByIdAsync(request.Id, request.UserId);
-
-                var response = mapper.Map<GetByIdAccountResponse>(account);
+                var account = await readRepo.FindByIdAsync(Id, UserId) ??
+                    throw new System.Exception("Account not Found!");
+                
+                var response = mapper.Map<GetAccountByIdResponse>(account);
 
                 return response;  
-            }
-
-
-            private async Task ValidateAsync(GetByIdAccountRequest GetByIdAccountRequest) {
-                
-                var result = await new GetByIdAccountValidator().ValidateAsync(GetByIdAccountRequest);
-
-
-                if (result.IsValid)
-                return;
-                
-                var errorMessages = (from errors in result.Errors select errors.ErrorMessage).ToList();
-
             }
         }
     }

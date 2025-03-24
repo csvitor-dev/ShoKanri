@@ -26,7 +26,7 @@ namespace ShoKanri.Application.UseCases.Account.Register
         }
 
 
-        private async Task ValidateAsync(RegisterAccountRequest registerAccountRequest)
+        private static async Task ValidateAsync(RegisterAccountRequest registerAccountRequest)
         {
 
             var result = await new RegisterAccountValidator().ValidateAsync(registerAccountRequest);

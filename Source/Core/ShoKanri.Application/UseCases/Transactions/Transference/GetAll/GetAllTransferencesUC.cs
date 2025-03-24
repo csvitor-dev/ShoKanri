@@ -7,30 +7,22 @@ namespace ShoKanri.Application.UseCases.Transactions.Transference.GetAll
 {
     public class GetAllTransferencesUC (
         ITransactionReadRepository readRepo,
-        Mapper mapper
+        IMapper mapper
 
     ): IGetAllTransferencesUC
     {
-        public async Task<TransactionResponse> GetAllTransferences(GetAllTransferencesRequest request)
+        public async Task<IList<TransactionResponse>> GetAllTransferences(int Id, int AccountId)
         {
-            await ValidateAsync(request);
 
-            var transferences = await readRepo.FindAllAsync(request.AccountId);
+            var transferences = await readRepo.FindAllAsync(AccountId);
 
             if (transferences == null || !transferences.Any()) throw new System.Exception("sem Transferences");
 
-            var response = mapper.Map<TransactionResponse>(transferences);
+            var response = mapper.Map<IList<TransactionResponse>>(transferences);
 
             return response;
 
         }
 
-
-        private static async Task ValidateAsync(GetAllTransferencesRequest getAllTransferencesRequest ) {
-
-            var result = await new GetAllTransferencesValidator().ValidateAsync(getAllTransferencesRequest);
-
-            if (result.IsValid) return;
-        }
     }
 }

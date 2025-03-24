@@ -1,2 +1,2 @@
 namespace ShoKanri.Http.Requests.Transaction;
-       public record UpdateTransactionRequest(int Id, int AccountId);
+       public record UpdateTransactionRequest(decimal Amount, string Description);

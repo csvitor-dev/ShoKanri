@@ -9,7 +9,7 @@ namespace ShoKanri.Application.UseCases.Transactions.Transference.Update
     public class UpdateTransferenceUC(
         ITransactionWriteRepository writeRepo,
         IUnitOfWork unitOfWork,
-        Mapper mapper
+        IMapper mapper
     ) : IUpdateTransferenceUC
     {
         public async Task<TransactionResponse> UpdateTransference(UpdateTransferenceRequest request)

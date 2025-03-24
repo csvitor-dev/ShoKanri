@@ -7,29 +7,21 @@ namespace ShoKanri.Application.UseCases.Transactions.Expense.GetAll
 {
     public class GetAllExpensesUC(
         ITransactionReadRepository readRepo,
-        Mapper mapper
+        IMapper mapper
 
     ) : IGetAllExpensesUC
     {
-        public async Task<TransactionResponse> GetAllExpense(GetAllTransactionRequest request)
+        public async Task<IList<TransactionResponse>> GetAllExpense(int AccountId)
         {
-            await ValidateAsync(request);
 
-            var expenses = await readRepo.FindAllAsync(request.AccountId);
+            var expenses = await readRepo.FindAllAsync(AccountId);
             
             if (expenses == null || !expenses.Any()) throw new System.Exception("sem expenses");
 
-            var response = mapper.Map<TransactionResponse>(expenses);
+            var response = mapper.Map<IList<TransactionResponse>>(expenses);
 
             return response;
 
-        }
-
-        private static async Task ValidateAsync(GetAllTransactionRequest getAllTransactionRequest ) {
-
-            var result = await new GetAllExpensesValidator().ValidateAsync(getAllTransactionRequest);
-
-            if (result.IsValid) return;
         }
     }
 }
