@@ -1,5 +1,6 @@
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using ShoKanri.Application.UseCases.Account.Delete;
 using ShoKanri.Application.UseCases.Account.GetAll;
 using ShoKanri.Application.UseCases.Account.GetById;
 using ShoKanri.Application.UseCases.Account.Register;
@@ -68,6 +69,21 @@ public sealed class AccountController : ControllerBase
     )
     {
         var response = await uc.GetAllAccounts(userId);
+
+        return Ok(response);
+    }
+
+    [Authorize]
+    [HttpDelete("{userId:int}/{id:int}")]
+    [ProducesResponseType(typeof(List<GetAllAccountsResponse>), StatusCodes.Status200OK)]
+    public async Task<IActionResult> Delete
+    (
+        [FromServices] IDeleteAccountUC uc,
+        int userId,
+        int id
+    )
+    {
+        var response = await uc.DeleteAccount(id, userId);
 
         return Ok(response);
     }
