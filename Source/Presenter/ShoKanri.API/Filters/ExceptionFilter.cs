@@ -19,7 +19,7 @@ internal class ExceptionFilter : IExceptionFilter
 
     private static void HandleProjectException(ExceptionContext context, ProjectException exception)
     {
-        var errorResponse = ApiResponse.Fail(exception.GetErrorMessages());
+        var errorResponse = new { Errors = exception.GetErrorMessages() };
 
         context.HttpContext
             .Response.StatusCode = exception.StatusCode;
@@ -30,6 +30,6 @@ internal class ExceptionFilter : IExceptionFilter
     {
         context.HttpContext
             .Response.StatusCode = StatusCodes.Status500InternalServerError;
-        context.Result = new ObjectResult(ApiResponse.Fail(new { Unknown = context.Exception.Message }));
+        context.Result = new ObjectResult(new { Unknown = context.Exception.Message });
     }
 }
