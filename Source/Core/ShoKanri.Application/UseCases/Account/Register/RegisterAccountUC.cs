@@ -1,5 +1,6 @@
 using AutoMapper;
 using ShoKanri.Domain.Contracts.Data.Repositories.Account;
+using ShoKanri.Domain.Contracts.Data.Repositories.User;
 using ShoKanri.Domain.Contracts.Data.Services;
 using ShoKanri.Http.Requests.Account;
 using ShoKanri.Http.Responses.Account;
@@ -8,7 +9,8 @@ namespace ShoKanri.Application.UseCases.Account.Register
 {
     public class RegisterAccountUC
     (
-        IAccountWriteRepository writeRepo,
+        IUserReadRepository userReadRepo,
+        IAccountWriteRepository accountWriteRepo,
         IUnitOfWork unitOfWork,
         IMapper mapper
     ) : UseCase<RegisterAccountRequest>(new RegisterAccountValidator()), IRegisterAccountUC
@@ -19,10 +21,19 @@ namespace ShoKanri.Application.UseCases.Account.Register
 
             var account = mapper.Map<Domain.Entities.Account>(request);
 
-            await writeRepo.CreateAsync(account);
+            await accountWriteRepo.CreateAsync(account);
             await unitOfWork.CommitAsync();
 
-            return new RegisterAccountResponse(request.UserId, account.Name!);
+            return new RegisterAccountResponse(account.Id, account.Name!);
+        }
+
+        protected override async Task<string> ApplyExtraValidationAsync(RegisterAccountRequest request)
+        {
+            var user = await userReadRepo.FindByIdAsync(request.UserId);
+
+            return user is null
+                ? $"não existe um usuário com o id {request.UserId}"
+                : string.Empty;
         }
     }
 }

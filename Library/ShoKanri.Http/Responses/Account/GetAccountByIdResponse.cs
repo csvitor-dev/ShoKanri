@@ -1,2 +1,2 @@
 namespace ShoKanri.Http.Responses.Account;
-public record GetAccountByIdResponse(string Name, decimal Balance, string Description);
+public record GetAccountByIdResponse(int Id, int UserId, string Name, decimal Balance, string Description);

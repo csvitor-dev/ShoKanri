@@ -20,7 +20,7 @@ public class UpdateUserUC
         await ValidateAsync(request);
 
         var user = await readRepo.FindByIdAsync(id)
-            ?? throw new NotFoundException("usuário com o id {id} não foi encontrado");
+            ?? throw new NotFoundException($"usuário com o id {id} não foi encontrado");
 
         var mapUser = mapper.Map(request, user);
         mapUser.UpdatedOn = DateTimeOffset.Now.UtcDateTime;

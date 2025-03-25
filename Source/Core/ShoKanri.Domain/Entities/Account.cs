@@ -11,10 +11,10 @@ public sealed class Account
     public string? Name { get; set; }
     public decimal Balance { get; set; }
     public string Description { get; set; } = string.Empty;
-    public DateTimeOffset UpdatedOn { get; set; }  = DateTimeOffset.Now.UtcDateTime;
+    public DateTimeOffset UpdatedOn { get; set; } = DateTimeOffset.Now.UtcDateTime;
     public bool Active { get; set; } = true;
 
-    public Transaction[] Statement => [.. _statement];
+    public List<Transaction> Statement => [.. _statement];
 
     public void Withdraw(decimal amount)
     {

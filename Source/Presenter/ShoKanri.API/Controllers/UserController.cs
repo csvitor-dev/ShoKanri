@@ -11,9 +11,10 @@ using ShoKanri.Http.Responses.User;
 
 namespace ShoKanri.API.Controllers;
 
+[ApiController]
 [Route("[controller]")]
 public sealed class UserController
-    (TokenService service) : ApplicationController
+    (TokenService service) : ControllerBase
 {
     [HttpPost("register")]
     [ProducesResponseType(typeof(RegisterUserResponse), StatusCodes.Status201Created)]
@@ -25,7 +26,7 @@ public sealed class UserController
     {
         var response = await uc.RegisterUser(request);
 
-        return AppCreated(response);
+        return Created(string.Empty, response);
     }
 
     [HttpPost("login")]
@@ -40,7 +41,7 @@ public sealed class UserController
         var token = service.GenerateJwtToken(result);
 
         var response = new TokenResponse(result.Id, token);
-        return AppOk(response);
+        return Ok(response);
     }
 
     [Authorize]
@@ -53,7 +54,7 @@ public sealed class UserController
     )
     {
         var response = await uc.DeleteUser(id);
-        return AppOk(response);
+        return Ok(response);
     }
 
     [Authorize]
@@ -68,6 +69,6 @@ public sealed class UserController
     {
         var response = await uc.UpdateUser(id, request);
 
-        return AppOk(response);
+        return Ok(response);
     }
 }

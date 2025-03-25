@@ -14,7 +14,7 @@ public class GetByIdAccountUC
     public async Task<GetAccountByIdResponse> GetByIdAccount(int id, int userId)
     {
         var account = await readRepo.FindByIdAsync(id, userId) ??
-            throw new ErrorOnValidationException("conta não encontrada");
+            throw new NotFoundException("conta não encontrada");
 
         var response = mapper.Map<GetAccountByIdResponse>(account);
 

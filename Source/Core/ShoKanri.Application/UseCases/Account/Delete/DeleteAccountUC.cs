@@ -16,9 +16,9 @@ public class DeleteAccountUC
     {
 
         var account = await readRepo.FindByIdAsync(id, userId) ??
-            throw new ErrorOnValidationException("conta não encontrada");
+            throw new NotFoundException("conta não encontrada");
 
-        await writeRepo.DeleteAsync(id);
+        await writeRepo.DeleteAsync(account.Id);
         await unitOfWork.CommitAsync();
 
         return new DeleteAccountResponse(account.Id, account.Name!);
