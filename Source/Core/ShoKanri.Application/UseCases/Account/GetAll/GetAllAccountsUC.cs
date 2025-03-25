@@ -1,4 +1,3 @@
-using System.ComponentModel.DataAnnotations;
 using AutoMapper;
 using ShoKanri.Domain.Contracts.Data.Repositories.Account;
 using ShoKanri.Exception.Project;
@@ -25,6 +24,6 @@ public class GetAllAccountsUC
     private static void Validate(IList<Domain.Entities.Account>? accounts)
     {
         if (accounts?.Any() is false)
-            throw new ErrorOnValidationException("nenhuma conta foi encontrada");
+            throw new NotFoundException("nenhuma conta foi encontrada");
     }
 }

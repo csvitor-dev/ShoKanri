@@ -1,5 +1,6 @@
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using ShoKanri.Application.UseCases.Account.GetAll;
 using ShoKanri.Application.UseCases.Account.GetById;
 using ShoKanri.Application.UseCases.Account.Register;
 using ShoKanri.Application.UseCases.Account.Update;
@@ -53,6 +54,20 @@ public sealed class AccountController : ControllerBase
     )
     {
         var response = await uc.GetByIdAccount(id, userId);
+
+        return Ok(response);
+    }
+
+    [Authorize]
+    [HttpGet("{userId:int}")]
+    [ProducesResponseType(typeof(List<GetAllAccountsResponse>), StatusCodes.Status200OK)]
+    public async Task<IActionResult> GetAll
+    (
+        [FromServices] IGetAllAccountsUC uc,
+        int userId
+    )
+    {
+        var response = await uc.GetAllAccounts(userId);
 
         return Ok(response);
     }
