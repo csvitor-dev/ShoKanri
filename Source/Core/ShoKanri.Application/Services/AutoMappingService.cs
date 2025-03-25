@@ -26,7 +26,7 @@ public class AutoMappingService : Profile
         CreateMap<User, LoginUserDto>();
 
         CreateMap<UpdateUserRequest, User>()
-            .ForAllMembers((opt) => 
+            .ForAllMembers((opt) =>
                 opt.Condition((src, dest, srcMember) => srcMember is not null));
         CreateMap<User, UpdateUserResponse>();
 
@@ -34,7 +34,9 @@ public class AutoMappingService : Profile
 
 
         // Account
-        CreateMap<RegisterAccountRequest, Account>();
+        CreateMap<RegisterAccountRequest, Account>()
+            .ForMember((dest) => dest.Balance, 
+                (opt) => opt.MapFrom((src) => src.InitialBalance));
         CreateMap<Account, RegisterAccountResponse>();
 
         CreateMap<Account, GetAllAccountsResponse>();

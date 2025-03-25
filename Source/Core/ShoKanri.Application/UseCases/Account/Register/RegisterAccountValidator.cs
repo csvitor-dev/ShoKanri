@@ -12,7 +12,8 @@ namespace ShoKanri.Application.UseCases.Account.Register
 
             RuleFor((a) => a.InitialBalance).NotNull().NotEmpty();
 
-            RuleFor((a) => a.Description).MaximumLength(500);
+            RuleFor((a) => a.Description).NotEmpty().MaximumLength(500)
+                .When((a) => a.Description is not null);
         }
     }
 }
