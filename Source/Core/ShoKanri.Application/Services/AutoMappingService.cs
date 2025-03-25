@@ -35,7 +35,7 @@ public class AutoMappingService : Profile
 
         // Account
         CreateMap<RegisterAccountRequest, Account>()
-            .ForMember((dest) => dest.Balance, 
+            .ForMember((dest) => dest.Balance,
                 (opt) => opt.MapFrom((src) => src.InitialBalance));
         CreateMap<Account, RegisterAccountResponse>();
 
@@ -43,7 +43,11 @@ public class AutoMappingService : Profile
 
         CreateMap<Account, GetAccountByIdResponse>();
 
-        CreateMap<UpdateAccountRequest, Account>();
+        CreateMap<UpdateAccountRequest, Account>()
+            .ForMember((dest) => dest.Balance,
+                (opt) => opt.MapFrom((src, dest) => src.Balance ?? dest.Balance))
+            .ForAllMembers((opt) =>
+                opt.Condition((src, dest, srcMember) => srcMember is not null));
         CreateMap<Account, UpdateAccountResponse>();
 
         CreateMap<Account, DeleteAccountResponse>();
