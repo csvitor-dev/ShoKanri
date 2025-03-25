@@ -1,5 +1,6 @@
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using ShoKanri.Application.UseCases.Account.GetById;
 using ShoKanri.Application.UseCases.Account.Register;
 using ShoKanri.Application.UseCases.Account.Update;
 using ShoKanri.Http.Requests.Account;
@@ -37,6 +38,21 @@ public sealed class AccountController : ControllerBase
     )
     {
         var response = await uc.UpdateAccount(userId, id, request);
+
+        return Ok(response);
+    }
+
+    [Authorize]
+    [HttpGet("{userId:int}/{id:int}")]
+    [ProducesResponseType(typeof(GetAccountByIdResponse), StatusCodes.Status200OK)]
+    public async Task<IActionResult> GetById
+    (
+        [FromServices] IGetByIdAccountUC uc,
+        int userId,
+        int id
+    )
+    {
+        var response = await uc.GetByIdAccount(id, userId);
 
         return Ok(response);
     }
