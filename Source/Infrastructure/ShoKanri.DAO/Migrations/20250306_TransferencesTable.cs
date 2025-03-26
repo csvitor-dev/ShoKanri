@@ -1,4 +1,3 @@
-using System;
 using System.Data;
 using FluentMigrator;
 
@@ -10,7 +9,7 @@ public class TransferencesTable : Migration
     public override void Up()
     {
         Create.Table("Transferences")
-              .WithColumn("Id").AsInt32().PrimaryKey()
+              .WithColumn("Id").AsInt32().PrimaryKey().Identity()
               .WithColumn("DestinationId").AsInt32().NotNullable();
 
         Create.ForeignKey("FK_Transferences_Transaction")
