@@ -56,35 +56,16 @@ public class AutoMappingService : Profile
         CreateMap<RegisterTransactionRequest, Income>();
         CreateMap<Income, TransactionResponse>();
 
-        CreateMap<Income, TransactionResponse>();
-
         CreateMap<UpdateTransactionRequest, Income>();
-        CreateMap<Income, TransactionResponse>();
-
-        CreateMap<Income, TransactionResponse>();
 
         // Expense
         CreateMap<RegisterTransactionRequest, Expense>();
         CreateMap<Expense, TransactionResponse>();
 
-        CreateMap<Expense, TransactionResponse>();
-
         CreateMap<UpdateTransactionRequest, Expense>();
-        CreateMap<Expense, TransactionResponse>();
-
-        CreateMap<Expense, TransactionResponse>();
 
         //   Transference
         CreateMap<RegisterTransferenceRequest, Transference>();
         CreateMap<Transference, TransactionResponse>();
-
-        CreateMap<Transference, TransactionResponse>();
-
-        CreateMap<UpdateTransferenceRequest, Transference>();
-        CreateMap<Transference, TransactionResponse>();
-
-        CreateMap<Transference, TransactionResponse>();
-
-
     }
 }

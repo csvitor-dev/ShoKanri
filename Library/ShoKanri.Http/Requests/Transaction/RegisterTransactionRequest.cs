@@ -1,5 +1,4 @@
-using ShoKanri.Http.Enums;
-
 namespace ShoKanri.Http.Requests.Transaction;
 
-public record RegisterTransactionRequest(decimal Amount, TransactionType Type, string Description = "");
+public record RegisterTransactionRequest
+    (int UserId, int AccountId, decimal Amount, string Description);
