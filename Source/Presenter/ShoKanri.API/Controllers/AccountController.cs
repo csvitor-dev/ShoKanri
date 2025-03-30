@@ -10,7 +10,6 @@ using ShoKanri.Http.Responses.Account;
 
 namespace ShoKanri.API.Controllers;
 
-[ApiController]
 [Route("[controller]")]
 public sealed class AccountController : ControllerBase
 {

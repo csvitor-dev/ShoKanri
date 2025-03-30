@@ -9,7 +9,6 @@ using ShoKanri.Http.Responses.Transaction;
 
 namespace ShoKanri.API.Controllers;
 
-[ApiController]
 [Route("[controller]")]
 public sealed class TransactionController : ControllerBase
 {

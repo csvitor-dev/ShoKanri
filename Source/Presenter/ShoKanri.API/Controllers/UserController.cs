@@ -5,13 +5,11 @@ using ShoKanri.Application.UseCases.User.Delete;
 using ShoKanri.Application.UseCases.User.Login;
 using ShoKanri.Application.UseCases.User.Register;
 using ShoKanri.Application.UseCases.User.Update;
-using ShoKanri.Exception.Base;
 using ShoKanri.Http.Requests.User;
 using ShoKanri.Http.Responses.User;
 
 namespace ShoKanri.API.Controllers;
 
-[ApiController]
 [Route("[controller]")]
 public sealed class UserController
     (TokenService service) : ControllerBase
